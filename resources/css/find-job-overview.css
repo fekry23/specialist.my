@@ -1,0 +1,217 @@
+/* Candidate Profile Pop-up window */
+.job-container {
+    display: flex;
+    width: 80%;
+    max-height: 100%;
+    margin: auto;
+}
+
+.job-profile {
+    display: block;
+    height: auto;
+    padding: 5% 5%;
+    background-color: white;
+}
+
+@media (max-width:768px) {.job-container {width: 100%;}}
+/* End of Candidate Profile Pop-up window */
+
+/* The back Button */
+.job-profile .back-btn {
+    display: flex;
+    align-items: center;
+    color: black;
+    font-size: large;
+    font-weight: bold;
+    padding: 0.3%;
+    margin-top: -2%;
+    margin-bottom: 2%;
+    background-color: transparent;
+    border-color: transparent;
+}
+
+.job-profile .back-btn:hover,
+.job-profile .back-btn:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+@media (max-width:1024px) {.job-profile .back-btn{font-size: medium;}}
+@media (max-width:768px) {.job-profile .back-btn{font-size: small;}}
+@media (max-width:425px) {.job-profile .back-btn{font-size: smaller;}}
+@media (max-width:320px) {.job-profile .back-btn{font-size: x-small;}}
+/* End of The back Button */
+
+/* The Title and State */
+.job-profile .header-profile {
+    margin: auto;
+    text-align: left
+}
+
+.job-profile .header-profile #header-profile-img {
+    height: 100px;
+    border-radius: 50px;
+}
+
+.job-profile .header-profile h1 {
+    font-size: xx-large;
+}
+
+.job-profile .header-profile h3 {
+    margin-top: 1%;
+}
+
+@media (max-width:1024px) {.job-profile .header-profile h1 {font-size: large;} .job-profile .header-profile h3 {font-size: medium;}}
+@media (max-width:768px) {.job-profile .header-profile h1 {font-size:medium;} .job-profile .header-profile h3 {font-size: small;}}
+@media (max-width:425px) {.job-profile .header-profile h1 {font-size:small;} .job-profile .header-profile h3 {font-size: smaller;}}
+@media (max-width:320px) {.job-profile .header-profile h1 {font-size:smaller;} .job-profile .header-profile h3 {font-size: x-small;}}
+/* End of The Title and State */
+
+.job-profile .hr {
+    margin: 1% auto;
+    border-radius: 100%;
+    border: 1px solid #ccc;
+}
+
+/* Description */
+@media (max-width:1024px) {.job-profile .description-profile h3 {font-size: medium;} .job-profile .description-profile p {font-size: medium;}}
+@media (max-width:768px) {.job-profile .description-profile h3 {font-size: small;} .job-profile .description-profile p {font-size: small;}}
+@media (max-width:425px) {.job-profile .description-profile h3 {font-size: smaller;} .job-profile .description-profile p {font-size: smaller;}}
+@media (max-width:320px) {.job-profile .description-profile h3 {font-size: x-small;} .job-profile .description-profile p {font-size: x-small;}}
+/* End of Description */
+
+/* Category and Skills Button Styling*/
+.job-profile .category-profile button{
+    text-decoration: none;
+    color: white;
+    padding: 4px 5px;
+    background-color: #89CFF0;
+    border: 1px solid #89CFF0;
+    border-radius: 15px;  
+    margin-top: 1%;
+}
+
+.job-profile .skills-profile .skills-profile-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 1%;
+}
+
+.job-profile .skills-profile li{
+    list-style-type: none;
+    margin-right: 0.5%;
+    padding-bottom: 2%;
+}
+
+.job-profile .skills-profile .tags-btn-lookalike{
+    text-decoration: none;
+    color: white;
+    padding: 4px 5px;
+    background-color: #89CFF0;
+    border: 1px solid #89CFF0;
+    border-radius: 15px;    
+}
+
+@media (max-width:1024px) {.job-profile .category-profile span {font-size: medium;} .job-profile .skills-profile .tags-btn-lookalike {font-size: medium;}}
+@media (max-width:768px) {.job-profile .category-profile span {font-size: small;} .job-profile .skills-profile .tags-btn-lookalike {font-size: small;}}
+@media (max-width:425px) {.job-profile .category-profile span {font-size: smaller;} .job-profile .skills-profile .tags-btn-lookalike {font-size: smaller;}}
+@media (max-width:320px) {.job-profile .category-profile span {font-size: x-small;} .job-profile .skills-profile .tags-btn-lookalike {font-size: x-small;}}
+/* End of Category and Skills Button Styling*/
+
+/* Category and Skills header*/
+@media (max-width:1024px) {.job-profile .category-profile h3 {font-size: medium;} .job-profile .skills-profile h3 {font-size: medium;}}
+@media (max-width:768px) {.job-profile .category-profile h3 {font-size: small;} .job-profile .skills-profile h3 {font-size: small;}}
+@media (max-width:425px) {.job-profile .category-profile h3 {font-size: smaller;} .job-profile .skills-profile h3 {font-size: smaller;}}
+@media (max-width:320px) {.job-profile .category-profile h3 {font-size: x-small;} .job-profile .skills-profile h3 {font-size: x-small;}}
+/* End of Category */
+
+/* Filter and About the Client Upper and Lower Information*/
+.job-profile .filter-profile {
+    display: flex;
+    text-align: center;
+    justify-content: space-evenly;
+}
+
+.job-profile .filter-profile .small-container {
+    margin: 2% 0% 2% 0%;
+}
+
+.job-profile .filter-profile .small-container .lower-filter,
+.job-profile .contact-profile .small-container .lower-filter{
+    color: grey;
+    font-size:small;
+}
+
+@media (max-width:1024px) {
+.job-profile .filter-profile .small-container .lower-filter {font-size: smaller;} .job-profile .filter-profile .small-container .upper-filter{font-size: small;}
+.job-profile .contact-profile .small-container .lower-filter {font-size: smaller;} .job-profile .contact-profile .small-container .upper-filter{font-size: small;}}
+@media (max-width:768px) {
+.job-profile .filter-profile .small-container .lower-filter {font-size: x-small;} .job-profile .filter-profile .small-container .upper-filter{font-size: smaller;}
+.job-profile .contact-profile .small-container .lower-filter {font-size: x-small;} .job-profile .contact-profile .small-container .upper-filter{font-size: smaller;}}
+@media (max-width:425px) {
+.job-profile .filter-profile .small-container .lower-filter {font-size: x-small;} .job-profile .filter-profile .small-container .upper-filter{font-size: x-small;}
+.job-profile .contact-profile .small-container .lower-filter {font-size: x-small;} .job-profile .contact-profile .small-container .upper-filter{font-size: x-small;}}
+@media (max-width:320px) {
+.job-profile .filter-profile .small-container .lower-filter {font-size: x-small;} .job-profile .filter-profile .small-container .upper-filter{font-size: x-small;}
+.job-profile .contact-profile .small-container .lower-filter {font-size: x-small;} .job-profile .contact-profile .small-container .upper-filter{font-size: x-small;}}
+/* End of Filter and About the Client Upper and Lower Information*/
+
+/* About the Client */
+.job-profile .contact-profile {
+    display: block;
+}
+
+.job-profile .contact-profile .parent-small-container {
+    display: flex;
+    text-align: center;
+}
+
+.job-profile .contact-profile .small-container {
+    margin: 2% 0% 2% 0%;
+    padding: 0% 3%;
+}
+
+@media (max-width:1024px) {.job-profile .contact-profile h3 {font-size: medium;}}
+@media (max-width:768px) {.job-profile .contact-profile h3 {font-size: small;} .job-profile .contact-profile .parent-small-container {justify-content: space-evenly;}}
+@media (max-width:425px) {.job-profile .contact-profile h3 {font-size: smaller;}}
+@media (max-width:320px) {.job-profile .contact-profile h3 {font-size: x-small;}}
+
+/* End of About the Client */
+
+/* Apply Button */
+.job-profile .apply-btn-profile {
+    display: flex;
+    justify-content: center;
+}
+
+.job-profile .apply-btn-profile button {
+    font-size: 16px;
+    padding: 12px 20px;
+    border: 2px solid #89CFF0;
+    border-radius: 4px;
+    background-color: #89CFF0;
+    color: #fff;
+    cursor: pointer;
+    margin-top: 2%;
+    width: 100%;
+}
+
+.job-profile .apply-btn-profile button:hover {
+    background-color: white;
+    color: #89CFF0;
+}
+
+.job-profile .apply-btn-profile button:active {
+    background-color: white;
+    color: #89CFF0;
+    box-shadow: 0 2px #666;
+    transform: translateY(4px);
+}
+
+@media (max-width:1024px) {.job-profile .apply-btn-profile button {font-size: medium;}}
+@media (max-width:768px) {.job-profile .apply-btn-profile button {font-size: small;}}
+@media (max-width:425px) {.job-profile .apply-btn-profile button {font-size: smaller;}}
+@media (max-width:320px) {.job-profile .apply-btn-profile button {font-size: x-small;}}
+/* End of Apply Button */

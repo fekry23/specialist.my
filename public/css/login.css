@@ -1,0 +1,78 @@
+.content {
+    display: flex;
+    width: 100%;
+    height: 867px;
+    background-color: #f1dac4;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-form-container {
+    display: block;
+    background-color: white;
+    width: 50%;
+    height: auto;
+    margin: auto;
+    padding: 20px 20px;
+    border: 5px solid #89CFF0;
+    border-radius: 25px;
+    text-align: center;
+}
+
+.login-form-container img{
+    margin-top: 2%;
+    width: 11%;
+}
+
+.login-form-container input[type="text"],
+.login-form-container input[type="email"],
+.login-form-container input[type="password"],
+.login-form-container select {
+    width: 80%;
+    padding: 12px 20px;
+    display: inline-block;
+    margin-top: 2%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.login-form-container .far{
+    position: absolute;
+    margin-left: -1.5%;
+    margin-top: 1.6%;
+}
+
+.login-form-container #login-user{
+    width: 200px;
+    height: 50px;
+    font-weight: 600;
+    border: 3px solid #89CFF0;
+    border-radius: 25px;
+    padding: 8px 15px;
+    background-color: #89CFF0;
+    color: white;
+    cursor: pointer;
+    margin-bottom: 2%;
+}
+
+.login-form-container .login-container {
+    width: 100%;
+    text-align: center;
+}
+
+.login-form-container .login-container p {
+    color: black;
+}
+
+.login-form-container .login-container a {
+    color: #89CFF0;
+    text-decoration: none;
+}
+
+.login-form-container .login-container a:visited {
+    color: #89CFF0;
+}
