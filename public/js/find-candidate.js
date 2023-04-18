@@ -68,7 +68,7 @@ if (window.location.pathname === '/find-candidate' && window.location.search ===
 var input_category = document.querySelector('input[name="input-category-dropdown"]'),
   // init Tagify script on the above inputs
   category_tagify = new (_yaireo_tagify__WEBPACK_IMPORTED_MODULE_0___default())(input_category, {
-    whitelist: ["Accounting & Consulting", "Admin Support", "Customer Service", "Data Science & Analytics", "Design & Creative", "Engineering & Architecture", "IT & Networking", "Legal", "Sales & Marketing", "Translation", "Web/Mobile & Software Dev", "Writing"],
+    whitelist: ["Accounting & Consulting", "Admin Support", "Customer Service", "Data Science & Analytics", "Design & Creative", "Engineering & Architecture", "IT & Networking", "Legal", "Sales & Marketing", "Translation", "Web/Mobile & Software Dev", "Writing", "Others"],
     maxTags: 3,
     dropdown: {
       maxItems: 12,
@@ -91,7 +91,7 @@ var input_state = document.querySelector('input[name=tags-select-state-mode]'),
   state_tagify = new (_yaireo_tagify__WEBPACK_IMPORTED_MODULE_0___default())(input_state, {
     enforceWhitelist: true,
     mode: "select",
-    whitelist: ["Johor", "Kedah", "Kelantan", "Kuala Lumpur", "Labuan", "Melaka", "Negeri Sembilan", "Pahang", "Penang", "Perak", "Perlis", "Perlis", "Putrajaya", "Sabah", "Sarawak", "Selangor", "Terengganu"],
+    whitelist: ["Johor", "Kedah", "Kelantan", "Kuala Lumpur", "Labuan", "Melaka", "Negeri Sembilan", "Pahang", "Penang", "Perak", "Perlis", "Putrajaya", "Sabah", "Sarawak", "Selangor", "Terengganu", "Others"],
     blacklist: ['foo', 'bar']
   });
 // -------------------------------------------------------------------------------------- //
@@ -415,6 +415,19 @@ function updateDiv() {
 
 /***/ }),
 
+/***/ "./resources/css/footer.css":
+/*!**********************************!*\
+  !*** ./resources/css/footer.css ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
 /***/ "./resources/css/index.css":
 /*!*********************************!*\
   !*** ./resources/css/index.css ***!
@@ -519,10 +532,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/css/footer.css":
-/*!**********************************!*\
-  !*** ./resources/css/footer.css ***!
-  \**********************************/
+/***/ "./resources/css/find-job-create.css":
+/*!*******************************************!*\
+  !*** ./resources/css/find-job-create.css ***!
+  \*******************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -644,6 +657,7 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 		var installedChunks = {
 /******/ 			"/js/find-candidate": 0,
 /******/ 			"css/footer": 0,
+/******/ 			"css/find-job-create": 0,
 /******/ 			"css/find-job-overview": 0,
 /******/ 			"css/find-job": 0,
 /******/ 			"css/find-candidate-overview": 0,
@@ -701,16 +715,17 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, ["css/footer","css/find-job-overview","css/find-job","css/find-candidate-overview","css/find-candidate","css/tagify","css/signup","css/login","css/index"], () => (__webpack_require__("./resources/js/find-candidate.js")))
-/******/ 	__webpack_require__.O(undefined, ["css/footer","css/find-job-overview","css/find-job","css/find-candidate-overview","css/find-candidate","css/tagify","css/signup","css/login","css/index"], () => (__webpack_require__("./resources/css/find-candidate.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/footer","css/find-job-overview","css/find-job","css/find-candidate-overview","css/find-candidate","css/tagify","css/signup","css/login","css/index"], () => (__webpack_require__("./resources/css/find-candidate-overview.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/footer","css/find-job-overview","css/find-job","css/find-candidate-overview","css/find-candidate","css/tagify","css/signup","css/login","css/index"], () => (__webpack_require__("./resources/css/find-job.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/footer","css/find-job-overview","css/find-job","css/find-candidate-overview","css/find-candidate","css/tagify","css/signup","css/login","css/index"], () => (__webpack_require__("./resources/css/find-job-overview.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/footer","css/find-job-overview","css/find-job","css/find-candidate-overview","css/find-candidate","css/tagify","css/signup","css/login","css/index"], () => (__webpack_require__("./resources/css/footer.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/footer","css/find-job-overview","css/find-job","css/find-candidate-overview","css/find-candidate","css/tagify","css/signup","css/login","css/index"], () => (__webpack_require__("./resources/css/index.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/footer","css/find-job-overview","css/find-job","css/find-candidate-overview","css/find-candidate","css/tagify","css/signup","css/login","css/index"], () => (__webpack_require__("./resources/css/login.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/footer","css/find-job-overview","css/find-job","css/find-candidate-overview","css/find-candidate","css/tagify","css/signup","css/login","css/index"], () => (__webpack_require__("./resources/css/signup.css")))
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/footer","css/find-job-overview","css/find-job","css/find-candidate-overview","css/find-candidate","css/tagify","css/signup","css/login","css/index"], () => (__webpack_require__("./resources/css/tagify.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/footer","css/find-job-create","css/find-job-overview","css/find-job","css/find-candidate-overview","css/find-candidate","css/tagify","css/signup","css/login","css/index"], () => (__webpack_require__("./resources/js/find-candidate.js")))
+/******/ 	__webpack_require__.O(undefined, ["css/footer","css/find-job-create","css/find-job-overview","css/find-job","css/find-candidate-overview","css/find-candidate","css/tagify","css/signup","css/login","css/index"], () => (__webpack_require__("./resources/css/find-candidate.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/footer","css/find-job-create","css/find-job-overview","css/find-job","css/find-candidate-overview","css/find-candidate","css/tagify","css/signup","css/login","css/index"], () => (__webpack_require__("./resources/css/find-candidate-overview.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/footer","css/find-job-create","css/find-job-overview","css/find-job","css/find-candidate-overview","css/find-candidate","css/tagify","css/signup","css/login","css/index"], () => (__webpack_require__("./resources/css/find-job.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/footer","css/find-job-create","css/find-job-overview","css/find-job","css/find-candidate-overview","css/find-candidate","css/tagify","css/signup","css/login","css/index"], () => (__webpack_require__("./resources/css/find-job-overview.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/footer","css/find-job-create","css/find-job-overview","css/find-job","css/find-candidate-overview","css/find-candidate","css/tagify","css/signup","css/login","css/index"], () => (__webpack_require__("./resources/css/find-job-create.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/footer","css/find-job-create","css/find-job-overview","css/find-job","css/find-candidate-overview","css/find-candidate","css/tagify","css/signup","css/login","css/index"], () => (__webpack_require__("./resources/css/footer.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/footer","css/find-job-create","css/find-job-overview","css/find-job","css/find-candidate-overview","css/find-candidate","css/tagify","css/signup","css/login","css/index"], () => (__webpack_require__("./resources/css/index.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/footer","css/find-job-create","css/find-job-overview","css/find-job","css/find-candidate-overview","css/find-candidate","css/tagify","css/signup","css/login","css/index"], () => (__webpack_require__("./resources/css/login.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/footer","css/find-job-create","css/find-job-overview","css/find-job","css/find-candidate-overview","css/find-candidate","css/tagify","css/signup","css/login","css/index"], () => (__webpack_require__("./resources/css/signup.css")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/footer","css/find-job-create","css/find-job-overview","css/find-job","css/find-candidate-overview","css/find-candidate","css/tagify","css/signup","css/login","css/index"], () => (__webpack_require__("./resources/css/tagify.css")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()
