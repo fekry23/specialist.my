@@ -37,11 +37,27 @@ Route::get('/find-candidate', [TrainerController::class, 'index']);
 //Show Specific Job at find-job overview page (find-trainers/show.blade.php)
 Route::get('/find-candidate/{id}', [TrainerController::class, 'show']);
 
+
+
+
+
+
 //Show All Jobs at find-job page (find-job/index.blade.php)
 Route::get('/find-job', [JobController::class, 'index']);
 
+//Show Create Job Form page (find-job/create.blade.php)
+Route::get('/find-job/create', [JobController::class, 'create']);
+
+//Store Created Job Data
+// Modify it later so it redirect to Employer Jobs Posted Page
+Route::post('/find-job', [JobController::class, 'store']);
+
 //Show Specific Job at find-job overview page (find-job/show.blade.php)
 Route::get('/find-job/{id}', [JobController::class, 'show']);
+
+
+
+
 
 // Route::get('/', function () {
 //     return view('welcome');

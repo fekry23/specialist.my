@@ -15,7 +15,7 @@ var input_category = document.querySelector('input[name="input-category-dropdown
     category_tagify = new Tagify(input_category, {
         whitelist: ["Accounting & Consulting", "Admin Support", "Customer Service", "Data Science & Analytics",
             "Design & Creative", "Engineering & Architecture", "IT & Networking", "Legal", "Sales & Marketing", "Translation",
-            "Web/Mobile & Software Dev", "Writing"],
+            "Web/Mobile & Software Dev", "Writing", "Others"],
         maxTags: 3,
         dropdown: {
             maxItems: 12, // <- mixumum allowed rendered suggestions
@@ -35,7 +35,8 @@ var input_state = document.querySelector('input[name=tags-select-state-mode]'),
     state_tagify = new Tagify(input_state, {
         enforceWhitelist: true,
         mode: "select",
-        whitelist: ["Johor", "Kedah", "Kelantan", "Kuala Lumpur", "Labuan", "Melaka", "Negeri Sembilan", "Pahang", "Penang", "Perak", "Perlis", "Perlis", "Putrajaya", "Sabah", "Sarawak", "Selangor", "Terengganu"],
+        whitelist: ["Johor", "Kedah", "Kelantan", "Kuala Lumpur", "Labuan", "Melaka", "Negeri Sembilan", "Pahang", "Penang",
+            "Perak", "Perlis", "Putrajaya", "Sabah", "Sarawak", "Selangor", "Terengganu", "Others"],
         blacklist: ['foo', 'bar'],
     })
 // -------------------------------------------------------------------------------------- //

@@ -9,17 +9,21 @@ class Job extends Model
 {
     use HasFactory;
 
+    //https://laravel.com/docs/10.x/eloquent#mass-assignment
+    // https://stackoverflow.com/questions/22279435/what-does-mass-assignment-mean-in-laravel
+    protected $fillable = [
+        'title', 'state', 'description', 'category', 'type', 'rate', 'exp_level', 'project_length', 'skills'
+    ];
+
+    protected $guarded = [
+        'id', 'created_at', 'updated_at'
+    ];
+
     //https://laravel.com/docs/5.0/eloquent#query-scopes
     // array $filters dapat dari file nama app/Controller/ListingController.php
     public function scopeFilter($query, array $filters)
     {
         //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing
-        //Example:
-        // The result of a ?? b is:
-        // if a is defined, then a,
-        // if a isn’t defined, then b.
-        // Kalau kiri defined, ambik kiri
-        // Kalau kiri undefined, ambik kanan
         if ($filters['keywords'] ?? false) {
             //             where: This is a method on the query builder that adds a WHERE clause to the query.
             // 'tags': This is the name of the column in the table that we want to filter on.
