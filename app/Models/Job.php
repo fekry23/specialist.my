@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Job extends Model
 {
@@ -12,11 +13,11 @@ class Job extends Model
     //https://laravel.com/docs/10.x/eloquent#mass-assignment
     // https://stackoverflow.com/questions/22279435/what-does-mass-assignment-mean-in-laravel
     protected $fillable = [
-        'title', 'state', 'description', 'category', 'type', 'rate', 'exp_level', 'project_length', 'skills'
+        'title', 'state', 'description', 'category', 'type', 'rate', 'exp_level', 'project_length', 'skills', 'employer_id'
     ];
 
     protected $guarded = [
-        'id', 'created_at', 'updated_at'
+        'id', 'employer_id', 'created_at', 'updated_at'
     ];
 
     //https://laravel.com/docs/5.0/eloquent#query-scopes
@@ -33,8 +34,8 @@ class Job extends Model
             // The % symbols are wildcard characters that match any number of characters before or after the tag value.
             $query->where('title', 'like', '%' . request('keywords') . '%')
                 ->orWhere('description', 'like', '%' . request('keywords') . '%')
-                ->orWhere('skills', 'like', '%' . request('keywords') . '%');
-
+                ->orWhere('skills', 'like', '%' . request('keywords') . '%')
+                ->orWhere('category', 'like', '%' . request('keywords') . '%');
             //This is similar to SELECT * FROM table_name WHERE tags LIKE '%tag_value%'
         }
 

@@ -1,0 +1,467 @@
+.big-container {
+    display: flex;
+}
+
+/* Left Container */
+
+.left-container {
+    background-color: #ffffff;
+    padding: 1.5rem;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+    max-width: 15%;
+}
+
+.left-nav-items ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.left-nav-items .active {
+    background-color: #8dc7ff;
+    border-radius: 0.3rem;
+    padding: 0.8rem 0rem;
+    transition: color 0.3s ease-in-out, border 0.5s ease-out;
+    /* Increase border transition duration and adjust timing function */
+    /* Added transition property for border */
+}
+
+.left-nav-items .active:hover {
+    border: 2px solid black;
+}
+
+.left-nav-items .active a {
+    padding-left: 4%;
+    color: white !important;
+}
+
+.left-nav-items .active a i {
+    color: white;
+}
+
+.left-nav-items ul li {
+    margin-bottom: 2rem;
+}
+
+.employer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.employer-container img {
+    margin-top: 3rem;
+    width: 50%;
+}
+
+.employer-container h3,
+.employer-container h5 {
+    margin-top: 1rem;
+}
+
+.employer-container h5 {
+    color: #8e8e8e;
+
+}
+
+.left-nav-items ul li a {
+    color: #000000;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.left-nav-items ul li a:hover {
+    color: #87cefa;
+}
+
+.left-nav-items ul li a i {
+    color: black;
+    margin-right: 1rem;
+    font-size: 1.2rem;
+}
+
+#jobs-dropdown {
+    display: none;
+    padding: 0.5rem;
+}
+
+#jobs-dropdown li {
+    list-style-type: none;
+    margin: 1rem 2rem;
+}
+
+#jobs-dropdown li a {
+    color: #333;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+#jobs-dropdown li a:hover {
+    color: #87cefa;
+}
+
+#jobs-link {
+    display: block;
+    color: #000;
+    text-decoration: none;
+    position: relative;
+}
+
+#jobs-link:hover {
+    color: #87cefa;
+}
+
+#jobs-link::after {
+    content: "\f107";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    font-size: 0.8rem;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+}
+
+#jobs-link.open::after {
+    content: "\f106";
+}
+
+/* EOF Left Container */
+
+/* Right Container */
+
+.right-container {
+    display: flex;
+    flex-direction: column;
+    padding: 3em;
+    min-width: 85%;
+}
+
+.right-container .row1 {
+    display: block;
+}
+
+.right-container .row2 {
+    display: flex;
+}
+
+.right-container .dashboard-header {
+    width: 100%;
+    background-color: white;
+    border-radius: 1em;
+    border-left: 4px solid #87CEFA;
+    padding: 2% 0% 2% 1%;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.right-container .dashboard-header:hover {
+    box-shadow: rgba(135, 206, 250, 0.4) -5px 5px, rgba(135, 206, 250, 0.3) -10px 10px, rgba(135, 206, 250, 0.2) -15px 15px, rgba(135, 206, 250, 0.1) -20px 20px, rgba(135, 206, 250, 0.05) -25px 25px;
+}
+
+.right-container .dashboard-header h1 {
+    font-size: 50px;
+    padding-bottom: 1%;
+}
+
+.right-container .r2-column {
+    margin: 2% 0%;
+    /* outline: black dashed 1px; */
+}
+
+.right-container .r2-first-column,
+.right-container .r2-second-column {
+    display: block;
+}
+
+.right-container .row1-mini {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding-top: 2%;
+}
+
+.right-container .row1-mini .small-box {
+    display: flex;
+    flex-wrap: wrap;
+    min-width: 24%;
+    max-width: 100%;
+    border-radius: 1em;
+    background-color: white;
+    padding: 2em;
+
+}
+
+.right-container .row1-mini .small-box .small-box-left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.right-container .row1-mini .left-border-active {
+    /* border-left: 4px solid #87CEFA; */
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.right-container .row1-mini .left-border-active:hover {
+    box-shadow: rgba(135, 206, 250, 0.4) -5px 5px, rgba(135, 206, 250, 0.3) -10px 10px, rgba(135, 206, 250, 0.2) -15px 15px, rgba(135, 206, 250, 0.1) -20px 20px, rgba(135, 206, 250, 0.05) -25px 25px;
+}
+
+.right-container .row1-mini .left-border-pending {
+    /* border-left: 4px solid #E6E6FA; */
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.right-container .row1-mini .left-border-pending:hover {
+    box-shadow: rgba(230, 230, 250, 0.4) 0px 5px, rgba(230, 230, 250, 0.3) -10px 10px, rgba(230, 230, 250, 0.2) -15px 15px, rgba(230, 230, 250, 0.1) -20px 20px, rgba(230, 230, 250, 0.05) -25px 25px;
+}
+
+.right-container .row1-mini .left-border-review {
+    /* border-left: 4px solid #FFC0CB; */
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.right-container .row1-mini .left-border-review:hover {
+    box-shadow: rgba(255, 192, 203, 0.4) 0px 5px, rgba(255, 192, 203, 0.3) -10px 10px, rgba(255, 192, 203, 0.2) -15px 15px, rgba(255, 192, 203, 0.1) -20px 20px, rgba(255, 192, 203, 0.05) -25px 25px;
+}
+
+.right-container .row1-mini .left-border-completed {
+    /* border-left: 4px solid #98FB98; */
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.right-container .row1-mini .left-border-completed:hover {
+    box-shadow: rgba(152, 251, 152, 0.4) 0px 5px, rgba(152, 251, 152, 0.3) -10px 10px, rgba(152, 251, 152, 0.2) -15px 15px, rgba(152, 251, 152, 0.1) -20px 20px, rgba(152, 251, 152, 0.05) -25px 25px;
+}
+
+.right-container .row1-mini .small-box .small-box-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 25%;
+    padding: 10px;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.right-container .row1-mini .small-box .small-box-right .small-box-title {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.right-container .row1-mini .small-box .small-box-right .small-box-value {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    color: #87CEFA;
+}
+
+.right-container .row1-mini .small-box .small-box-left,
+.right-container .row1-mini .small-box .small-box-right {
+    width: 50%;
+}
+
+.right-container .row1-mini .small-box .small-box-left i,
+.right-container .row1-mini .small-box .small-box-right i {
+    font-size: 3rem;
+}
+
+/* Account Summary */
+
+.right-container .r2-first-column {
+    min-width: 60%;
+}
+
+.right-container .r2-first-column .account-summary {
+    background-color: white;
+    /* outline: black dashed 1px; */
+    min-width: 60%;
+    border-radius: 1em;
+    padding: 2% 2%;
+    margin-bottom: 2%;
+}
+
+.right-container .r2-first-column .account-summary .r2-first-header {
+    text-align: center;
+}
+
+.right-container .r2-first-column .account-summary .r2-first-content {
+    display: block;
+}
+
+.right-container .r2-first-column .account-summary .r2-first-content .chart {
+    width: 100%;
+    padding: 3% 0% 3% 0%;
+}
+
+/* EOF Account Summary */
+
+/* Latest Activity */
+
+.right-container .r2-second-column {
+    min-width: 40%;
+}
+
+.right-container .r2-second-column .latest-activity {
+    background-color: white;
+    /* outline: black dashed 1px; */
+    min-width: 30%;
+    min-height: 36.5rem;
+    border-radius: 1em;
+    padding: 4% 4%;
+    margin-left: 10%;
+    margin-bottom: 2%;
+}
+
+.right-container .r2-second-column .latest-activity .r2-second-content {
+    overflow-y: scroll;
+    min-height: 30rem;
+}
+
+/* EOF Latest Activity */
+
+/* Active Jobs/Pending Payment */
+
+.right-container .r2-first-column .active-jobs,
+.right-container .r2-first-column .pending-payment {
+    background-color: white;
+    /* outline: black dashed 1px; */
+    max-width: 100%;
+    min-height: 21rem;
+    max-height: 40rem;
+    border-radius: 1em;
+    padding: 2% 2%;
+    margin-bottom: 2%;
+}
+
+.right-container .r2-first-column .active-jobs .r2-first-header,
+.right-container .r2-first-column .pending-payment .r2-first-header {
+    text-align: center;
+}
+
+.right-container .r2-first-column .active-jobs .r2-first-content,
+.right-container .r2-first-column .pending-payment .r2-first-content {
+    min-height: inherit;
+}
+
+.right-container .r2-first-column .active-jobs .r2-first-content .r2-first-content-header,
+.right-container .r2-first-column .pending-payment .r2-first-content .r2-first-content-header {
+    border-bottom: 1px solid black;
+}
+
+.right-container .r2-first-column .active-jobs .r2-first-content .r2-first-content-header,
+.right-container .r2-first-column .pending-payment .r2-first-content .r2-first-content-header,
+.right-container .r2-first-column .active-jobs .r2-first-content .button-content,
+.right-container .r2-first-column .pending-payment .r2-first-content .button-content {
+    display: flex;
+    align-items: center;
+    margin-top: 1.5%;
+    margin-bottom: 1.5%;
+    min-width: 100%;
+    padding: 1% 1%;
+}
+
+.right-container .r2-first-column .active-jobs .r2-first-content .button-content,
+.right-container .r2-first-column .pending-payment .r2-first-content .button-content {
+    background-color: transparent;
+    border: 1px solid rgb(190, 189, 189);
+    border-radius: 0.5rem;
+}
+
+.right-container .r2-first-column .active-jobs .r2-first-content .button-content:hover,
+.right-container .r2-first-column .pending-payment .r2-first-content .button-content:hover {
+    background-color: transparent;
+    border: 1px solid rgb(97, 97, 97);
+    cursor: pointer;
+}
+
+.right-container .r2-first-column .active-jobs .r2-first-content .r2-first-content-header .id-content-header,
+.right-container .r2-first-column .pending-payment .r2-first-content .r2-first-content-header .id-content-header,
+.right-container .r2-first-column .active-jobs .r2-first-content .button-content .id-content,
+.right-container .r2-first-column .pending-payment .r2-first-content .button-content .id-content {
+    min-width: 10%;
+    max-width: 10%;
+    text-align: start;
+}
+
+.right-container .r2-first-column .active-jobs .r2-first-content .r2-first-content-header .title-content-header,
+.right-container .r2-first-column .pending-payment .r2-first-content .r2-first-content-header .title-content-header,
+.right-container .r2-first-column .active-jobs .r2-first-content .button-content .title-content,
+.right-container .r2-first-column .pending-payment .r2-first-content .button-content .title-content {
+    min-width: 40%;
+    max-width: 40%;
+    text-align: start;
+}
+
+.right-container .r2-first-column .active-jobs .r2-first-content .r2-first-content-header .trainer-content-header,
+.right-container .r2-first-column .pending-payment .r2-first-content .r2-first-content-header .trainer-content-header,
+.right-container .r2-first-column .active-jobs .r2-first-content .button-content .trainer-content,
+.right-container .r2-first-column .pending-payment .r2-first-content .button-content .trainer-content {
+    display: flex;
+    align-items: center;
+    text-align: start;
+    min-width: 30%;
+    max-width: 30%;
+}
+
+.right-container .r2-first-column .active-jobs .r2-first-content .button-content .trainer-content img,
+.right-container .r2-first-column .pending-payment .r2-first-content .button-content .trainer-content img {
+    max-width: 1.5rem;
+    border-radius: 3em;
+    margin-right: 0.5rem;
+}
+
+.right-container .r2-first-column .active-jobs .r2-first-content .r2-first-content-header .status-content-header,
+.right-container .r2-first-column .pending-payment .r2-first-content .r2-first-content-header .status-content-header,
+.right-container .r2-first-column .active-jobs .r2-first-content .button-content .status-content,
+.right-container .r2-first-column .pending-payment .r2-first-content .button-content .status-content {
+    display: flex;
+    align-items: center;
+    min-width: 10%;
+    max-width: 10%;
+    text-align: start;
+}
+
+.right-container .r2-first-column .active-jobs .r2-first-content .button-content .status-content,
+.right-container .r2-first-column .pending-payment .r2-first-content .button-content .status-content {
+    min-width: 10%;
+
+    margin-right: 0.5rem;
+}
+
+.right-container .r2-first-column .active-jobs .r2-first-content .button-content .status-content .status-content-color,
+.right-container .r2-first-column .pending-payment .r2-first-content .button-content .status-content .status-content-color {
+    background-color: greenyellow;
+    border-radius: 3em;
+    min-height: 1.5rem;
+    min-width: 1.5rem;
+    margin-right: 0.5rem;
+}
+
+.right-container .r2-first-column .active-jobs .r2-first-footer,
+.right-container .r2-first-column .pending-payment .r2-first-footer {
+    display: flex;
+    text-align: center;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1% 0% 0% 0%;
+    border-top: 1px solid black;
+}
+
+.right-container .r2-first-column .active-jobs .r2-first-footer a,
+.right-container .r2-first-column .pending-payment .r2-first-footer a {
+    text-decoration: none;
+    font-size: 16px;
+    padding: 12px 20px;
+    border: 2px solid #89CFF0;
+    border-radius: 4px;
+    background-color: #89CFF0;
+    color: #fff;
+    cursor: pointer;
+    margin-left: 16px;
+}
+
+/* EOF Active Jobs/Pending Payment */

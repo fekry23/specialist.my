@@ -125,6 +125,11 @@
             </div>
             <!-- END OF VIEWING CANDIDATE OVERVIEW PROFILE -->
 
+            <div class="c2-row2-mini">
+                <div class="tw-mt-6 tw-p-4">
+                    {{ $jobs->links('pagination::tailwind') }}
+                </div>
+            </div>
         </div>
     </div>
 @endsection

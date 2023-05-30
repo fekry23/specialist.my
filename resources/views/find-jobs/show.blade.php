@@ -82,15 +82,16 @@
                 </div>
                 <div class="parent-small-container">
                     <div class="small-container">
-                        <p class="upper-filter"><i class="bi bi-geo-alt"></i></i> ABC</p>
+                        <p class="upper-filter"><i class="bi bi-geo-alt"></i></i> {{ $employer->state }}</p>
                         <p class="lower-filter">State</p>
                     </div>
                     <div class="small-container">
-                        <p class="upper-filter"><i class="bi bi-briefcase"></i> 0</p>
+                        <p class="upper-filter"><i class="bi bi-briefcase"></i> {{ $totalJobs_counter }}</p>
                         <p class="lower-filter">Jobs Posted</p>
                     </div>
                     <div class="small-container">
-                        <p class="upper-filter"><i class="bi bi-person-vcard"></i> 0/0/0000</p>
+                        <p class="upper-filter"><i class="bi bi-person-vcard"></i>
+                            {{ \Carbon\Carbon::parse($employer->created_at)->diffForHumans() }}</p>
                         <p class="lower-filter">Member Since</p>
                     </div>
                 </div>

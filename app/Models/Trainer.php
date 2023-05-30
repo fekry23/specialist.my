@@ -2,12 +2,41 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
-class Trainer extends Model
+class Trainer extends Authenticatable
 {
-    use HasFactory;
+    use HasApiTokens, HasFactory, Notifiable;
+
+    //https://laravel.com/docs/10.x/eloquent#mass-assignment
+    // https://stackoverflow.com/questions/22279435/what-does-mass-assignment-mean-in-laravel
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'username', 'name', 'email', 'password', 'state',
+    ];
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    protected $guarded = [
+        'id', 'created_at', 'updated_at'
+    ];
 
     public function scopeFilter($query, array $filters)
     {

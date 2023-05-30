@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             TrainerSeeder::class,
             EmployerSeeder::class,
-            JobSeeder::class
+            JobSeeder::class,
         ]);
 
         // //https://stackoverflow.com/questions/64220203/how-to-get-unique-values-from-faker
