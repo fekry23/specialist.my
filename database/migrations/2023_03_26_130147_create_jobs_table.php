@@ -17,6 +17,11 @@ return new class extends Migration
                 ->constrained('employers')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
+            $table->foreignId('trainer_id')
+                ->nullable()
+                ->constrained('trainers')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             $table->string('title');
             $table->string('state');
             $table->longText('description');
@@ -26,6 +31,7 @@ return new class extends Migration
             $table->string('exp_level');
             $table->string('project_length');
             $table->string('skills');
+            $table->string('status')->default('On going');
             $table->timestamps();
         });
     }

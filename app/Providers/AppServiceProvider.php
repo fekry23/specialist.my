@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\activeJob;
+use App\Observers\activeJobObserver;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        activeJob::observe(activeJobObserver::class);
+        Paginator::useTailwind();
     }
 }

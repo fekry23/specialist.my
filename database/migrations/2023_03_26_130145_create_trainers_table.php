@@ -15,16 +15,17 @@ return new class extends Migration
             $table->id();
             $table->string('username')->unique();
             $table->string('email')->unique();
-            $table->string('password');
+            $table->string('password')->nullable();
             $table->string('name');
             $table->string('state');
-            $table->string('contact_no');
-            $table->string('hourly_rate');
-            $table->string('category');
-            $table->string('specialization_title');
-            $table->longText('specialization_description');
-            $table->string('skills_expertise');
-            $table->string('english_level');
+            $table->string('image')->nullable();
+            $table->string('contact_no')->nullable();
+            $table->string('hourly_rate')->nullable();
+            $table->string('category')->nullable();
+            $table->string('specialization_title')->nullable();
+            $table->longText('specialization_description')->nullable();
+            $table->string('skills_expertise')->nullable();
+            $table->string('english_level')->nullable();
             $table->timestamps();
         });
     }

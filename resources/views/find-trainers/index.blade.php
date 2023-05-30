@@ -89,7 +89,7 @@
                 @unless (count($trainers) == 0)
                     @foreach ($trainers as $trainer)
                         {{-- To access compononents, use " <x-file-name/> --}}
-                        <x-trainer-card :trainer="$trainer" /> <!-- pass job as prop -->
+                        <x-find-trainers.trainer-card :trainer="$trainer" /> <!-- pass job as prop -->
                     @endforeach
                 @else
                     <div class="no-listings-div">
@@ -98,6 +98,13 @@
                     </div>
                 @endunless
             </div>
+
+            <div class="c2-row2-mini">
+                <div class="tw-mt-6 tw-p-4">
+                    {{ $trainers->links('pagination::tailwind') }}
+                </div>
+            </div>
+
             <!-- END OF VIEWING CANDIDATE OVERVIEW PROFILE -->
         </div>
 

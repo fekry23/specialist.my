@@ -11,7 +11,12 @@
             <button class="back-btn" onclick="goBack()"><i class="fas fa-arrow-left"></i> <span
                     style="margin-left: 10%">Back</span> </button>
             <div class="header-profile">
-                <img id="header-profile-img" src="/images/find-candidate/candidate-profile.png" alt="">
+                @if (isset($trainer->image) && file_exists(public_path('/images/find-candidate/' . $trainer->image)))
+                    <img src="{{ url('/images/find-candidate/' . $trainer->image) }}"
+                        alt="{{ $trainer->name ?? 'Trainer' }} Profile Image" class="tw-rounded tw-w-36 tw-h-36">
+                @else
+                    <div class="tw-w-36 tw-h-36 tw-bg-gray-300"></div>
+                @endif
                 <h1>{{ $trainer->name }}</h1>
                 <h3>{{ $trainer->state }}</h3>
 
@@ -44,7 +49,7 @@
             <div class="skills-profile">
                 <h3>Skills & expertise</h3>
                 <div class="skills-profile-container">
-                    <x-trainer-tags :tagsCsv="$trainer->skills_expertise" /> {{-- Component for Skills tags in overview --}}
+                    <x-find-trainers.trainer-tags :tagsCsv="$trainer->skills_expertise" /> {{-- Component for Skills tags in overview --}}
                 </div>
             </div>
 

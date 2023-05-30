@@ -43,6 +43,12 @@ class TrainerFactory extends Factory
                 'Selangor',
                 'Terengganu'
             ]),
+            'image' => $this->faker->randomElement([
+                'user.jpg',
+                'user2.png',
+                'user3.png',
+                'user4.png'
+            ]),
             'contact_no' => $this->faker->mobileNumber($countryCodePrefix = false, $formatting = true),
             'hourly_rate' => $this->faker->numberBetween(1, 100),
             'category' => $this->faker->randomElement([
