@@ -67,11 +67,25 @@ class Trainer extends Authenticatable
         }
 
         if ($filters['rate'] ?? false) {
-
-            $rate = explode(',', $filters['rate']); // split the types into an array
-            $query->whereIn('hourly_rate', $rate); // use whereIn to match multiple types
-            //This is similar to SELECT * FROM table_name WHERE category LIKE '%category%'
+            $rate = $filters['rate'];
+            if ($rate === 'any') {
+                // Display all trainers
+            } elseif ($rate === '0-5') {
+                $query->where('hourly_rate', '<=', 5); // Match rate less than or equal to 5
+            } elseif ($rate === '6-10') {
+                $query->whereBetween('hourly_rate', [6, 10]); // Match rate within the range 6 to 10
+            } elseif ($rate === '11-15') {
+                $query->whereBetween('hourly_rate', [11, 15]); // Match rate within the range 11 to 15
+            } elseif ($rate === '16') {
+                $query->where('hourly_rate', '>=', 16); // Match rate greater than or equal to 16
+            }
+        } else {
+            // Display all trainers when rate is not specified
         }
+
+
+
+
 
         if ($filters['level'] ?? false) {
 

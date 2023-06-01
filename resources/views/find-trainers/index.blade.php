@@ -62,7 +62,7 @@
                     <label for="level2">Conversational</label><br>
                     <input type="checkbox" id="level3" name="level" value="fluent">
                     <label for="level3">Fluent</label><br>
-                    <input type="checkbox" id="level4" name="level" value="native">
+                    <input type="checkbox" id="level4" name="level" value="native or bilingual">
                     <label for="level4">Native or bilingual</label><br>
                 </div>
             </div>
@@ -97,13 +97,15 @@
                         <h2 class="no-listings-p">No jobs found</h2>
                     </div>
                 @endunless
-            </div>
-
-            <div class="c2-row2-mini">
-                <div class="tw-mt-6 tw-p-4">
-                    {{ $trainers->links('pagination::tailwind') }}
+                {{-- Paginate --}}
+                <div class="c2-row2-mini">
+                    <div class="tw-mt-6 tw-p-4">
+                        {{ $trainers->links('pagination::tailwind') }}
+                    </div>
                 </div>
             </div>
+
+
 
             <!-- END OF VIEWING CANDIDATE OVERVIEW PROFILE -->
         </div>

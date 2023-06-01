@@ -16,14 +16,15 @@ class JobController extends Controller
     // Show all jobs
     public function index()
     {
-        return view('find-jobs.index', [ //folderName.fileName
+        $jobs = Job::where('trainer_id', null)
+            ->latest()
+            ->filter(request(['keywords', 'skills', 'category', 'state', 'type', 'experience', 'history', 'length']))
+            ->paginate(10)
+            ->withQueryString();
 
-            //latest get the latest data first
-            //filter according to the requested tag
-            //get the data
-            'jobs' => Job::latest()->filter(request(['keywords', 'skills', 'category', 'state', 'type', 'experience', 'history', 'length']))->paginate(10)
-        ]);
+        return view('find-jobs.index', compact('jobs'));
     }
+
 
     //Show Specific Job at find-job overview page
     public function show(Job $job_id)
@@ -103,7 +104,7 @@ class JobController extends Controller
 
         // Format the updated_at date using Carbon
         foreach ($job_status as $status) {
-            $status->formatted_updated_at = Carbon::parse($status->updated_at_from_status_tracker_table)->format('F Y');
+            $status->formatted_updated_at = Carbon::parse($status->updated_at_from_status_tracker_table)->format('d F Y');
         }
 
         $finishTime = Carbon::now('Asia/Kuala_Lumpur'); // Format as 'hours:minutes:seconds'
@@ -417,10 +418,36 @@ class JobController extends Controller
             ->where('id', $userId)
             ->first();
 
-        $active_jobs = Job::latest()
-            ->filter(['keywords' => $searchTerm])
-            ->where('employer_id', $userId) // Add a condition to filter by user ID
+        $active_jobs = DB::table('active_jobs')
+            ->select('active_jobs.id', 'jobs.id AS job_id', 'jobs.title', 'trainers.image', 'trainers.name', 'jobs.status')
+            ->join('jobs', 'active_jobs.job_id', '=', 'jobs.id')
+            ->leftJoin('trainers', 'active_jobs.trainer_id', '=', 'trainers.id')
+            ->where('active_jobs.employer_id', $userId)
+            ->whereNotIn('jobs.status', ['Completed'])
+            ->where(function ($query) use ($searchTerm) {
+                $query->where('jobs.title', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('jobs.description', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('jobs.skills', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('jobs.category', 'like', '%' . $searchTerm . '%');
+            })
+            ->when($request->status, function ($query) use ($request) {
+                $query->where('jobs.status', $request->status);
+            })
+            ->orderBy('jobs.id', 'asc')
             ->paginate(10);
+
+
+
+        foreach ($active_jobs as $active_job) {
+
+            $applicant_counter = DB::table('trainer_applications')
+                ->where('trainer_applications.employer_id', $userId)
+                ->where('trainer_applications.job_id', $active_job->job_id)
+                ->where('trainer_applications.application_status', 'Applied')
+                ->count();
+
+            $active_job->applicant_counter = $applicant_counter;
+        }
 
         return view('employers.active-jobs', compact(
             'employer_details',

@@ -18,10 +18,6 @@
                         Jobs</a></li>
                 <li class="{{ request()->is('employer/jobs/active-jobs*') ? 'active' : '' }}"><a
                         href="{{ url('/employer/jobs/active-jobs') }}">Active Jobs</a></li>
-                <li class="{{ request()->is('employer/jobs/pending-jobs*') ? 'active' : '' }}"><a href="#">Pending
-                        Payment</a></li>
-                <li class="{{ request()->is('employer/jobs/review-jobs*') ? 'active' : '' }}"><a href="#">Review
-                        Jobs</a></li>
                 <li class="{{ request()->is('employer/jobs/completed-jobs*') ? 'active' : '' }}"><a
                         href="{{ url('employer/jobs/completed-jobs/') }}">Completed Jobs</a></li>
             </ul>

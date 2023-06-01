@@ -71,6 +71,8 @@ Route::middleware('auth:employer')->group(function () {
     // Search Active Jobs Fitler
     Route::get('/employer/jobs/active-jobs/search', [JobController::class, 'search_active_jobs'])->name('employer.search_active_jobs')->middleware('auth');
 
+
+
     //Show Create Job Form page
     Route::get('/employer/jobs/create', [JobController::class, 'create_job'])->middleware('auth');
 
