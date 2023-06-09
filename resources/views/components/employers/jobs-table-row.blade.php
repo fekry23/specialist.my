@@ -56,7 +56,7 @@
         </a>
         {{-- Pending Payment Button --}}
     @elseif($job->status == 'Pending payment' && $job->name)
-        <a href="" class="tw-no-underline">
+        <a href="{{ url('/employer/jobs/' . $job->job_id . '/' . $job->rate . '/payment') }}" class="tw-no-underline">
             <button type="button"
                 class="tw-px-5 tw-py-2 tw-bg-white tw-border-blue-500 tw-border tw-text-blue-500 tw-rounded tw-transition tw-duration-300 tw-cursor-pointer hover:tw-bg-blue-700 hover:tw-text-white focus:tw-outline-non">
                 Make Payment
@@ -72,7 +72,7 @@
         </a>
     @endif
 
-    <a href="/employer/jobs/{{ $job->id }}/progress" class="tw-no-underline">
+    <a href="/employer/jobs/{{ $job->job_id }}/progress" class="tw-no-underline">
         <button
             class="tw-px-5 tw-py-2 tw-cursor-pointer tw-bg-white tw-border-blue-500 tw-border tw-text-blue-500 tw-rounded tw-transition tw-duration-300 hover:tw-bg-blue-700 hover:tw-text-white focus:tw-outline-none">View
             Progress</button>

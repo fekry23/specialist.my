@@ -9,7 +9,7 @@
 
         {{-- Header Div --}}
         <div class="tw-container tw-mx-auto tw-pt-8 tw-px-4 tw-bg-white">
-            <x-employers.active-jobs-breadcrumb :current_page="'Job Progress'" />
+            <x-employers.jobs-breadcrumb :previous_page="'Active Job Listings'" :current_page="'Job Progress'" />
             <h1
                 class="tw-mb-4 tw-text-3xl tw-font-extrabold tw-text-gray-900 tw-dark:text-white tw-md:text-5xl tw-lg:text-6xl">
                 <span
@@ -40,7 +40,8 @@
                     class="tw-list-none tw-relative tw-border-l tw-border-y-0 tw-border-r-0 tw-border-solid tw-border-gray-200 dark:tw-border-gray-700">
                     @foreach ($job_status as $status)
                         {{-- To access compononents, use " <x-file-name/> --}}
-                        <x-employers.progress-information :status="$status" /> <!-- pass active_job as prop -->
+                        <x-employers.progress-information :status="$status" :completed_job_details="$completed_job_details" :review_details="$review_details" />
+                        <!-- pass active_job as prop -->
                     @endforeach
                 </ol>
             </div>
@@ -124,7 +125,8 @@
                             </button>
 
                             <button type="button" id="remove-btn"
-                                class="tw-px-5 tw-py-2 tw-bg-specialist tw-border-specialist tw-border tw-text-white tw-rounded-r-lg tw-transition tw-duration-300 tw-cursor-pointer hover:tw-bg-white hover:tw-text-specialist focus:tw-outline-none">
+                                class="tw-px-5 tw-py-2 tw-bg-specialist tw-border-specialist tw-border tw-text-white tw-rounded-r-lg {{ $completed_job_details ? 'tw-opacity-50 tw-cursor-not-allowed' : 'tw-transition tw-duration-300 tw-opacity-100 tw-cursor-pointer hover:tw-bg-white hover:tw-text-specialist focus:tw-outline-none' }} "
+                                {{ $completed_job_details ? 'disabled' : '' }}>
                                 Remove Specialist
                             </button>
                         @endisset

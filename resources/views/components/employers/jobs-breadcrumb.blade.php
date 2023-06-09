@@ -1,4 +1,4 @@
-@props(['current_page'])
+@props(['previous_page', 'current_page'])
 
 <nav class="tw-flex tw-pb-4" aria-label="Breadcrumb">
     <ol class="tw-list-none tw-inline-flex tw-items-center tw-space-x-1 md:tw-space-x-3">
@@ -22,9 +22,14 @@
                         d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
                         clip-rule="evenodd"></path>
                 </svg>
-                <a href="{{ route('employer.active_jobs') }}"
-                    class=" tw-no-underline tw-ml-1 tw-text-sm tw-font-medium tw-text-gray-700 tw-hover:text-blue-600 md:tw-ml-2 dark:tw:text-gray-400 dark:tw:hover:text-white">Active
-                    Job Listings</a>
+                @if ($previous_page === 'Active Job Listings')
+                    <a href="{{ route('employer.active_jobs') }}"
+                        class=" tw-no-underline tw-ml-1 tw-text-sm tw-font-medium tw-text-gray-700 tw-hover:text-blue-600 md:tw-ml-2 dark:tw:text-gray-400 dark:tw:hover:text-white">{{ $previous_page }}</a>
+                @elseif($previous_page === 'Completed Job Listings')
+                    <a href="{{ route('employer.completed_jobs') }}"
+                        class=" tw-no-underline tw-ml-1 tw-text-sm tw-font-medium tw-text-gray-700 tw-hover:text-blue-600 md:tw-ml-2 dark:tw:text-gray-400 dark:tw:hover:text-white">{{ $previous_page }}</a>
+                @endif
+
             </div>
         </li>
         <li aria-current="page">

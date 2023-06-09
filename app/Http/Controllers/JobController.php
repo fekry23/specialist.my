@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\completedJob;
 use Carbon\Carbon;
+use App\Models\Review;
+use App\Models\completedJob;
 use Illuminate\Http\Request;
 use App\Models\Job; //Job Model
-use App\Models\TrainerApplication;
 use Illuminate\Validation\Rule;
+use App\Models\TrainerApplication;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -85,6 +86,7 @@ class JobController extends Controller
                 'job_status_tracker.job_id',
                 'jobs.title',
                 'jobs.trainer_id',
+                'jobs.rate',
                 'jobs.status AS status_from_jobs_table',
                 'job_status_tracker.status AS status_from_status_tracker_table',
                 'job_status_tracker.description',
@@ -102,6 +104,16 @@ class JobController extends Controller
             ->where('trainer_applications.employer_id', $job->employer_id)
             ->count();
 
+        // Get the completed job details
+        $completed_job_details = DB::table('completed_jobs')
+            ->where('job_id', $job->id)
+            ->first();
+
+        // Get the completed job details
+        $review_details = DB::table('reviews')
+            ->where('job_id', $job->id)
+            ->first();
+
         // Format the updated_at date using Carbon
         foreach ($job_status as $status) {
             $status->formatted_updated_at = Carbon::parse($status->updated_at_from_status_tracker_table)->format('d F Y');
@@ -115,7 +127,9 @@ class JobController extends Controller
             'trainer',
             'job_status',
             'applicant_counter',
-            'finishTime'
+            'finishTime',
+            'completed_job_details',
+            'review_details'
         ));
     }
 
@@ -419,11 +433,11 @@ class JobController extends Controller
             ->first();
 
         $active_jobs = DB::table('active_jobs')
-            ->select('active_jobs.id', 'jobs.id AS job_id', 'jobs.title', 'trainers.image', 'trainers.name', 'jobs.status')
+            ->select('active_jobs.id', 'jobs.id AS job_id', 'jobs.title', 'jobs.rate', 'trainers.image', 'trainers.name', 'jobs.status')
             ->join('jobs', 'active_jobs.job_id', '=', 'jobs.id')
             ->leftJoin('trainers', 'active_jobs.trainer_id', '=', 'trainers.id')
             ->where('active_jobs.employer_id', $userId)
-            ->whereNotIn('jobs.status', ['Completed'])
+            ->whereNotIn('jobs.status', ['Need to be reviewed', 'Completed'])
             ->where(function ($query) use ($searchTerm) {
                 $query->where('jobs.title', 'like', '%' . $searchTerm . '%')
                     ->orWhere('jobs.description', 'like', '%' . $searchTerm . '%')
@@ -435,8 +449,6 @@ class JobController extends Controller
             })
             ->orderBy('jobs.id', 'asc')
             ->paginate(10);
-
-
 
         foreach ($active_jobs as $active_job) {
 
@@ -453,5 +465,91 @@ class JobController extends Controller
             'employer_details',
             'active_jobs'
         ));
+    }
+
+    public function search_completed_jobs(Request $request)
+    {
+        $searchTerm = $request->input('keywords');
+        // Get the authorized user's ID using the "employer" guard
+        $userId = Auth::guard('employer')->id();
+
+        // Get the employer details
+        $employer_details = DB::table('employers')
+            ->where('id', $userId)
+            ->first();
+
+        $completed_jobs = DB::table('completed_jobs')
+            ->select('completed_jobs.id', 'jobs.id AS job_id', 'jobs.title', 'jobs.rate', 'trainers.image', 'trainers.name', 'jobs.status')
+            ->join('jobs', 'completed_jobs.job_id', '=', 'jobs.id')
+            ->leftJoin('trainers', 'completed_jobs.trainer_id', '=', 'trainers.id')
+            ->where('completed_jobs.employer_id', $userId)
+            ->whereNotIn('jobs.status', ['On going', 'Pending payment'])
+            ->where(function ($query) use ($searchTerm) {
+                $query->where('jobs.title', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('jobs.description', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('jobs.skills', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('jobs.category', 'like', '%' . $searchTerm . '%');
+            })
+            ->when($request->status, function ($query) use ($request) {
+                $query->where('jobs.status', $request->status);
+            })
+            ->orderBy('jobs.id', 'asc')
+            ->paginate(10);
+
+        foreach ($completed_jobs as $completed_job) {
+
+            $applicant_counter = DB::table('trainer_applications')
+                ->where('trainer_applications.employer_id', $userId)
+                ->where('trainer_applications.job_id', $completed_job->job_id)
+                ->where('trainer_applications.application_status', 'Applied')
+                ->count();
+
+            $completed_job->applicant_counter = $applicant_counter;
+        }
+
+        return view('employers.completed-jobs', compact(
+            'employer_details',
+            'completed_jobs'
+        ));
+    }
+
+    public function store_review(Request $request, $job_id)
+    {
+        // Get the job details
+        $job_details = DB::table('jobs')
+            ->where('id', $job_id)
+            ->first();
+
+        // Define the allowed star ratings.
+        $allowedStars = [
+            '0', '1', '2', '3', '4', '5'
+        ];
+
+        // Validate the form fields.
+        $formFields = $request->validate([
+            'rating_value' => ['required', Rule::in($allowedStars)],
+            'title' => 'required|string|max:40',
+            'description' => 'required|string|max:400',
+        ]);
+
+        // Create a new instance of the 'completedJob' model
+        $review = new Review();
+        $review->employer_id = $job_details->employer_id;
+        $review->trainer_id = $job_details->trainer_id;
+        $review->job_id = $job_id;
+        $review->title = $formFields['title'];
+        $review->description = $formFields['description'];
+        $review->rating_value = $formFields['rating_value'];
+
+        // Save the completed job to the database
+        $review->save();
+
+        // Update the job status to 'Completed'.
+        DB::table('jobs')
+            ->where('id', $job_id)
+            ->update(['status' => 'Completed']);
+
+        // Redirect back with a success message.
+        return redirect()->route('employer.completed_jobs')->with('success-message', 'Your review has been successfully submitted!');
     }
 }

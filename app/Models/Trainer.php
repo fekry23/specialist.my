@@ -2,16 +2,17 @@
 
 namespace App\Models;
 
+use Laravel\Cashier\Billable;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class Trainer extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, Billable;
 
     //https://laravel.com/docs/10.x/eloquent#mass-assignment
     // https://stackoverflow.com/questions/22279435/what-does-mass-assignment-mean-in-laravel
@@ -79,19 +80,16 @@ class Trainer extends Authenticatable
             } elseif ($rate === '16') {
                 $query->where('hourly_rate', '>=', 16); // Match rate greater than or equal to 16
             }
-        } else {
-            // Display all trainers when rate is not specified
         }
 
-
-
-
-
         if ($filters['level'] ?? false) {
-
-            $experience = explode(',', $filters['level']); // split the types into an array
-            $query->whereIn('english_level', $experience); // use whereIn to match multiple types
-            //This is similar to SELECT * FROM table_name WHERE category LIKE '%category%'
+            $level = $filters['level'];
+            if ($level === 'any') {
+                // Display all trainers
+            } else {
+                $experience = explode(',', $filters['level']); // split the types into an array
+                $query->whereIn('english_level', $experience); // use whereIn to match multiple types
+            }
         }
     }
 }

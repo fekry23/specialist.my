@@ -10,7 +10,7 @@
         <div class="candidate-profile">
             <button class="back-btn" onclick="goBack()"><i class="fas fa-arrow-left"></i> <span
                     style="margin-left: 10%">Back</span> </button>
-            <div class="header-profile">
+            <div class="header-profile tw-flex tw-flex-col tw-items-center">
                 @if (isset($trainer->image) && file_exists(public_path('/images/find-candidate/' . $trainer->image)))
                     <img src="{{ url('/images/find-candidate/' . $trainer->image) }}"
                         alt="{{ $trainer->name ?? 'Trainer' }} Profile Image" class="tw-rounded tw-w-36 tw-h-36">

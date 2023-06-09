@@ -17,8 +17,8 @@
             <div class="tw-block">
                 <div
                     class="tw-w-full tw-bg-white tw-rounded tw-border-l-4 tw-mb-4 tw-border-blue-300 tw-py-[2%] tw-pr-[0%] tw-pl-[1%] ">
-                    <h1 class="tw-text-5xl tw-pb-1"> <span style="color:#87CEFA"> Active Job </span> Listings </h1>
-                    <h2>Manage Your Active Job Listings: Track Trainers and Contracts Statuses</h2>
+                    <h1 class="tw-text-5xl tw-pb-1"> <span style="color:#87CEFA"> Completed Job </span> Listings </h1>
+                    <h2>Manage Your Completed Job Listings: Track Progress and Provide Reviews</h2>
                 </div>
             </div>
             <!-- Search and Data table container -->
@@ -31,7 +31,8 @@
                     {{-- Filter divs --}}
                     <div class="tw-flex">
                         {{-- search bar --}}
-                        <form action="{{ route('employer.search_active_jobs') }}" method="GET" class="tw-flex tw-w-full">
+                        <form action="{{ route('employer.search_completed_jobs') }}" method="GET"
+                            class="tw-flex tw-w-full">
                             <label for="keywords"
                                 class="tw-mb-2 tw-text-sm tw-font-medium tw-text-gray-900 tw-sr-only">Search</label>
                             <div class="tw-flex">
@@ -55,12 +56,12 @@
                                     <select name="status"
                                         class="tw-w-48 tw-bg-gray-50 tw-border tw-border-gray-300 tw-text-gray-900 tw-text-sm tw-rounded-lg focus:tw-ring-blue-500 focus:tw-border-blue-500 tw-block tw-w-full tw-p-4">
                                         <option value="">Choose a status</option>
-                                        <option value="On going"
-                                            {{ request()->get('status') == 'On going' ? 'selected' : '' }}>On
-                                            going</option>
-                                        <option value="Pending payment"
-                                            {{ request()->get('status') == 'Pending payment' ? 'selected' : '' }}>Pending
-                                            payment
+                                        <option value="Need to be reviewed"
+                                            {{ request()->get('status') == 'Need to be reviewed' ? 'selected' : '' }}>Need
+                                            to be
+                                            reviewed</option>
+                                        <option value="Completed"
+                                            {{ request()->get('status') == 'Completed' ? 'selected' : '' }}>Completed
                                         </option>
                                     </select>
                                 </div>
@@ -131,7 +132,7 @@
 
                         {{-- Table content --}}
                         <tbody class="tw-bg-white">
-                            @if ($active_jobs->isEmpty())
+                            @if ($completed_jobs->isEmpty())
                                 <tr>
                                     <td colspan="5" class="tw-text-center">
                                         <!-- Use colspan="5" to span across all columns -->
@@ -144,21 +145,21 @@
                                     </td>
                                 </tr>
                             @else
-                                @foreach ($active_jobs as $active_job)
+                                @foreach ($completed_jobs as $completed_job)
                                     @php
                                         // For every even number, apply gray background
                                         $rowClass = $loop->iteration % 2 === 1 ? 'tw-bg-gray-100' : '';
                                     @endphp
                                     {{-- To access components, use "<x-file-name/>" --}}
                                     <tr class="tw-border-b-4 {{ $rowClass }}">
-                                        <x-employers.jobs-table-row :job="$active_job" />
+                                        <x-employers.jobs-table-row :job="$completed_job" />
                                     </tr>
                                 @endforeach
                             @endif
                         </tbody>
                     </table>
                     <div class="tw-mt-6 tw-p-4">
-                        {{ $active_jobs->links('pagination::tailwind') }}
+                        {{ $completed_jobs->links('pagination::tailwind') }}
                     </div>
                 </div>
             </div>

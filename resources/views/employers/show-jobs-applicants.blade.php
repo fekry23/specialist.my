@@ -42,7 +42,7 @@
             {{-- Job Applicants card --}}
             <div
                 class="tw-flex-none tw-w-full tw-p-4 tw-bg-white tw-border tw-border-solid tw-border-gray-200 tw-rounded-lg tw-shadow sm:tw-p-8 dark:tw-bg-gray-800 dark:tw-border-gray-700">
-                <x-employers.active-jobs-breadcrumb :current_page="'Specialist Applicants'" />
+                <x-employers.jobs-breadcrumb :previous_page="'Active Job Listings'" :current_page="'Specialist Applicants'" />
 
                 <h1
                     class="tw-mb-4 tw-text-3xl tw-font-extrabold tw-text-gray-900 tw-dark:text-white tw-md:text-5xl tw-lg:text-6xl">

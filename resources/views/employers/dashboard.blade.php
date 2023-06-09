@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('styles')
-    <link rel="stylesheet" href="{{ asset('css/employer-dashboard.css') }}">
+    <link rel="stylesheet" href="{{ mix('css/employer-dashboard.css') }}">
 @endsection
 
 @section('content')
@@ -111,7 +111,7 @@
                         {{-- Active Jobs Footer --}}
                         <div class="r2-first-footer">
                             <p>Total Active Jobs: {{ $totalActiveJobs_counter }}</p>
-                            <a href="">View All Active Jobs</a>
+                            <a href="{{ route('employer.active_jobs') }}">View All Active Jobs</a>
                         </div>
                     </div>
                     {{-- EOF Active Jobs --}}
@@ -152,7 +152,7 @@
                         </div>
                         <div class="r2-first-footer">
                             <p>Total Pending Payment: {{ $totalPendingPayment_counter }}</p>
-                            <a href="">View All Pending Payment</a>
+                            <a href="{{ route('employer.completed_jobs') }}">View All Pending Payment</a>
                         </div>
                     </div>
                     {{-- EOF Pending Payment --}}

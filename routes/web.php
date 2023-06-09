@@ -2,11 +2,13 @@
 
 use App\Models\Job;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JobController;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\userController;
-use App\Http\Controllers\TrainerController;
 use App\Http\Controllers\EmployerContoller;
+use App\Http\Controllers\TrainerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,6 +73,11 @@ Route::middleware('auth:employer')->group(function () {
     // Search Active Jobs Fitler
     Route::get('/employer/jobs/active-jobs/search', [JobController::class, 'search_active_jobs'])->name('employer.search_active_jobs')->middleware('auth');
 
+    // Search completed-jobs for logged-in employer
+    Route::get('/employer/jobs/completed-jobs', [EmployerContoller::class, 'completed_jobs'])->name('employer.completed_jobs')->middleware('auth');
+
+    // Search Completed Jobs Fitler
+    Route::get('/employer/jobs/completed-jobs/search', [JobController::class, 'search_completed_jobs'])->name('employer.search_completed_jobs')->middleware('auth');
 
 
     //Show Create Job Form page
@@ -107,6 +114,44 @@ Route::middleware('auth:employer')->group(function () {
     Route::put('/employer/jobs/{job_id}/remove-trainer/{trainer_id}', [JobController::class, 'remove_trainer'])->name('employer.remove_trainer');
 
     Route::post('/employer/jobs/{job_id}/update-job-status/{trainer_id}', [JobController::class, 'update_job_status'])->name('employer.update_job_status');
+
+
+
+    // Show payment page
+    Route::get('/employer/jobs/{job_id}/{rate}/payment', [EmployerContoller::class, 'show_payment_page'])->name('employer.show_payment_page')->middleware('auth');
+
+    // Update payment intent amount
+    Route::post('/employer/jobs/payment/{job_id}/{rate}/update_payment', [EmployerContoller::class, 'update_payment'])->name('employer.update_payment');
+
+    // Show success payment page
+    Route::get('/employer/jobs/{job_id}/{rate}/payment/success', function ($job_id, $rate) {
+        // Update the specific column in the trainer_applications table based on the provided parameters
+        DB::table('jobs')
+            ->where('id', $job_id)
+            ->update(['status' => 'Need to be reviewed']);
+
+        return view('payments.success-page');
+    })->name('employer.show_success_page')->middleware('auth');
+
+    // Show review form page
+    Route::get('/employer/jobs/{job_id}/review', [EmployerContoller::class, 'show_review_page'])->name('employer.show_review_page')->middleware('auth');
+
+    //Store review
+    Route::post('/employer/jobs/{job_id}/review/store', [JobController::class, 'store_review'])->name('employer.store_review');
+
+    //Download attachment
+    Route::get('/employer/jobs/{job_id}/download', function ($job_id) {
+        $attachment = request()->query('attachment');
+
+        // Check if the file exists in the public disk
+        if (Storage::disk('public')->exists($attachment)) {
+            // If the file exists, download it
+            return Storage::disk('public')->download($attachment);
+        } else {
+            // Handle file not found error
+            abort(404);
+        }
+    })->name('employers.download');
 });
 
 // Show dashboard for logged-in trainer (trainer/dashboard.blade.php)
