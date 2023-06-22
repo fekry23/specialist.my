@@ -22,7 +22,7 @@ class Trainer extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'username', 'name', 'email', 'password', 'state',
+        'username', 'name', 'email', 'password', 'state', 'contact_no', 'hourly_rate', 'category', 'specialization_title', 'specialization_description', 'skills_expertise', 'english_level', 'image',
     ];
 
     /**

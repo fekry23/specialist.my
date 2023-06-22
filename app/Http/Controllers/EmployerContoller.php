@@ -9,10 +9,12 @@ use Stripe\SetupIntent;
 use Stripe\PaymentIntent;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use App\Models\TrainerApplication;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Stripe\Exception\ApiErrorException;
 use App\Models\Employer; //Employer model
+use Illuminate\Support\Facades\Validator;
 
 class EmployerContoller extends Controller
 {
@@ -194,6 +196,109 @@ class EmployerContoller extends Controller
         return view('employers.show-review-page', compact('job_id'));
     }
 
+    public function show_settings_page($employer_id)
+    {
+        // Get the employer details
+        $employer_details = DB::table('employers')
+            ->where('id', $employer_id)
+            ->first();
+
+        return view('employers.show-settings', compact('employer_details'));
+    }
+
+    public function update_employer_settings(Request $request, Employer $employer)
+    {
+        $allowedStates = [
+            'Johor', 'Kedah', 'Kelantan', 'Kuala Lumpur', 'Labuan', 'Melaka', 'Negeri Sembilan', 'Pahang', 'Penang',
+            'Perak', 'Perlis', 'Putrajaya', 'Sabah', 'Sarawak', 'Selangor', 'Terengganu', 'Others'
+        ];
+
+        $allowedGender = [
+            'Male', 'Female'
+        ];
+
+        // dd($request->all());
+        //Validate is for what rule we want for certain file.
+        //https://laravel.com/docs/10.x/validation
+        $formFields = $request->validate([
+            'username' => [
+                'required',
+                'string',
+                'max:255',
+                'unique:employers,username,' . $employer->id,
+            ],
+            'name' => 'required|string|max:255',
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                'unique:employers,email,' . $employer->id,
+            ],
+            'new-password' => [
+                'nullable',
+                'string',
+                'min:8',
+                'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/',
+                'confirmed',
+            ],
+            'state' => [
+                Rule::in($allowedStates),
+            ],
+            'phone_number' => [
+                'nullable',
+                'regex:/^(\+?6?01)[0-46-9]-*[0-9]{7,8}$/',
+            ],
+            'gender' => [
+                'nullable',
+                Rule::in($allowedGender),
+            ],
+            'company_name' => 'nullable|string|max:255',
+        ], [
+            'username.required' => 'Please enter your username.',
+            'username.unique' => 'The username is already in use.',
+            'name.required' => 'Please enter your name.',
+            'email.required' => 'Please enter your email address.',
+            'email.email' => 'Please enter a valid email address.',
+            'email.unique' => 'The email address is already in use.',
+            'new-password.min' => 'Your password must be at least 8 characters long.',
+            'new-password.regex' => 'Your password must contain at least one lowercase letter, one uppercase letter, and one number.',
+            'new-password.confirmed' => 'Please confirm your password.',
+            'state.in' => 'Please select a valid state.',
+            'phone_number.regex' => 'Please enter a valid Malaysia phone number.',
+            'gender.in' => 'Please select a valid gender.',
+        ]);
+
+
+        // Handle the file upload (if applicable)
+        if ($request->hasFile('profile_picture')) {
+            $attachment = $request->file('profile_picture');
+
+            // Check if the file size exceeds the limit of 8MB
+            if ($attachment->getSize() > 8000000) {
+                return back()->with('error-message', 'File size exceeds the limit of 8MB');
+            }
+
+            // Define the allowed file formats
+            $allowedFormats = ['png', 'jpg'];
+            // Get the file format of the uploaded file
+            $fileFormat = strtolower($attachment->getClientOriginalExtension());
+
+            // Check if the file format is not in the allowed formats
+            if (!in_array($fileFormat, $allowedFormats)) {
+                return back()->with('error-message', 'Invalid file format. Allowed formats: PNG, JPG');
+            }
+
+            // Store the file inside public/storage/app/public/completed_attachments
+            $formFields['profile_picture'] = $attachment->store('employer_profile_images', 'public');
+        }
+
+        // dd($formFields['profile_picture']);
+        $employer->update($formFields);
+
+        return back()->with('success-message', 'Settings updated successfully!');
+    }
+
     public function update_payment(Request $request, $job_id, $rate)
     {
         // Get the employer email
@@ -236,5 +341,45 @@ class EmployerContoller extends Controller
                 ],
             ]);
         }
+    }
+
+    public function offer_job(Request $request)
+    {
+        // Get the authorized user's ID using the "employer" guard
+        $userId = Auth::guard('employer')->id();
+
+        $validator = Validator::make($request->all(), [
+            'job_id' => [
+                'required',
+                Rule::notIn(['']),
+            ],
+        ]);
+
+        // Redirect back with errors if validation fails
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->with('error-message', 'Your offer is not successful!')
+                ->with('div-class', 'tw-flex');
+        }
+
+        $formFields = $request->validate([
+            'job_id' => [
+                'required',
+                Rule::notIn(['']),
+            ],
+        ]);
+
+        // Create a new TrainerApplication instance
+        $trainerApplication = new TrainerApplication();
+        $trainerApplication->trainer_id = $request->trainer_id;
+        $trainerApplication->job_id = $formFields['job_id'];
+        $trainerApplication->employer_id = $userId;
+        $trainerApplication->description = $request->description;
+        $trainerApplication->application_status = "Offered";
+
+        $trainerApplication->save(); // Save the new trainer application to the database
+
+        return redirect('/employer/jobs/active-jobs')->with('success-message', 'Successfully offered!');
     }
 }

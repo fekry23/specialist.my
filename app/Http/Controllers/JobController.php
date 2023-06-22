@@ -133,6 +133,72 @@ class JobController extends Controller
         ));
     }
 
+    // Show Specific Job Progress details for Logged in Employer
+    public function show_job_progress_for_trainer(Job $job)
+    {
+        // dd($job);
+        // Get the employer details
+        $employer = DB::table('employers')
+            ->where('id', $job->employer_id)
+            ->first();
+
+        // Get the trainer details
+        $trainer = DB::table('trainers')
+            ->where('id', $job->trainer_id)
+            ->first();
+
+        $job_status = DB::table('job_status_tracker')
+            ->select(
+                'job_status_tracker.job_id',
+                'jobs.title',
+                'jobs.trainer_id',
+                'jobs.rate',
+                'jobs.status AS status_from_jobs_table',
+                'job_status_tracker.status AS status_from_status_tracker_table',
+                'job_status_tracker.description',
+                'job_status_tracker.updated_at AS updated_at_from_status_tracker_table',
+                'completed_jobs.attachment_path'
+            )
+            ->join('jobs', 'job_status_tracker.job_id', '=', 'jobs.id')
+            ->leftJoin('completed_jobs', 'jobs.id', '=', 'completed_jobs.job_id')
+            ->where('job_status_tracker.job_id', $job->id)
+            ->where('jobs.trainer_id', $job->trainer_id)
+            ->orderBy('job_status_tracker.updated_at', 'desc')
+            ->get();
+
+        $applicant_counter = DB::table('trainer_applications')
+            ->where('trainer_applications.employer_id', $job->employer_id)
+            ->count();
+
+        // Get the completed job details
+        $completed_job_details = DB::table('completed_jobs')
+            ->where('job_id', $job->id)
+            ->first();
+
+        // Get the completed job details
+        $review_details = DB::table('reviews')
+            ->where('job_id', $job->id)
+            ->first();
+
+        // Format the updated_at date using Carbon
+        foreach ($job_status as $status) {
+            $status->formatted_updated_at = Carbon::parse($status->updated_at_from_status_tracker_table)->format('d F Y');
+        }
+
+        $finishTime = Carbon::now('Asia/Kuala_Lumpur'); // Format as 'hours:minutes:seconds'
+
+        return view('trainers.show-jobs-progress', compact(
+            'job',
+            'employer',
+            'trainer',
+            'job_status',
+            'applicant_counter',
+            'finishTime',
+            'completed_job_details',
+            'review_details'
+        ));
+    }
+
     public function show_job_applicants(Job $job, Request $request)
     {
         $applications = DB::table('trainer_applications')
@@ -467,6 +533,41 @@ class JobController extends Controller
         ));
     }
 
+    public function search_active_jobs_for_trainer(Request $request)
+    {
+        $searchTerm = $request->input('keywords');
+        // Get the authorized user's ID using the "employer" guard
+        $userId = Auth::guard('trainer')->id();
+
+        // Get the employer details
+        $trainer_details = DB::table('trainers')
+            ->where('id', $userId)
+            ->first();
+
+        $active_jobs = DB::table('active_jobs')
+            ->select('active_jobs.id', 'jobs.id AS job_id', 'jobs.title', 'jobs.rate', 'employers.profile_picture', 'employers.name', 'jobs.status')
+            ->join('jobs', 'active_jobs.job_id', '=', 'jobs.id')
+            ->leftJoin('employers', 'active_jobs.employer_id', '=', 'employers.id')
+            ->where('active_jobs.trainer_id', $userId)
+            ->whereNotIn('jobs.status', ['Need to be reviewed', 'Completed'])
+            ->where(function ($query) use ($searchTerm) {
+                $query->where('jobs.title', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('jobs.description', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('jobs.skills', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('jobs.category', 'like', '%' . $searchTerm . '%');
+            })
+            ->when($request->status, function ($query) use ($request) {
+                $query->where('jobs.status', $request->status);
+            })
+            ->orderBy('jobs.id', 'asc')
+            ->paginate(10);
+
+        return view('trainers.active-jobs', compact(
+            'trainer_details',
+            'active_jobs'
+        ));
+    }
+
     public function search_completed_jobs(Request $request)
     {
         $searchTerm = $request->input('keywords');
@@ -511,6 +612,81 @@ class JobController extends Controller
             'employer_details',
             'completed_jobs'
         ));
+    }
+
+    public function search_completed_jobs_for_trainer(Request $request)
+    {
+        $searchTerm = $request->input('keywords');
+        // Get the authorized user's ID using the "trainer" guard
+        $userId = Auth::guard('trainer')->id();
+
+        // Get the employer details
+        $trainer_details = DB::table('trainers')
+            ->where('id', $userId)
+            ->first();
+
+        $completed_jobs = DB::table('completed_jobs')
+            ->select('completed_jobs.id', 'jobs.id AS job_id', 'jobs.title', 'employers.profile_image', 'employers.name', 'jobs.status')
+            ->join('jobs', 'completed_jobs.job_id', '=', 'jobs.id')
+            ->leftJoin('employers', 'completed_jobs.employer_id', '=', 'employers.id')
+            ->where('completed_jobs.employer_id', $userId)
+            ->whereNotIn('jobs.status', ['On going', 'Pending payment'])
+            ->where(function ($query) use ($searchTerm) {
+                $query->where('jobs.title', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('jobs.description', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('jobs.skills', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('jobs.category', 'like', '%' . $searchTerm . '%');
+            })
+            ->when($request->status, function ($query) use ($request) {
+                $query->where('jobs.status', $request->status);
+            })
+            ->orderBy('jobs.id', 'asc')
+            ->paginate(10);
+
+        return view('trainers.completed-jobs', compact(
+            'trainer_details',
+            'completed_jobs'
+        ));
+    }
+
+    public function search_applications_for_trainer(Request $request)
+    {
+        $searchTerm = $request->input('keywords');
+
+        // Get the authorized user's ID using the "trainer" guard
+        $userId = Auth::guard('trainer')->id();
+
+        // Get the trainer details
+        $trainer = DB::table('trainers')
+            ->where('id',  $userId)
+            ->first();
+
+        $applications = DB::table('trainer_applications')
+            ->select(
+                'trainer_applications.id',
+                'trainer_applications.trainer_id',
+                'trainer_applications.job_id',
+                'trainer_applications.employer_id',
+                'trainer_applications.description',
+                'trainer_applications.application_status',
+                'trainer_applications.created_at AS applied_time',
+                'jobs.title AS job_title'
+            )
+            ->leftJoin('jobs', 'jobs.id', '=', 'trainer_applications.job_id')
+            ->where('trainer_applications.trainer_id', $userId)
+            ->where(function ($query) use ($searchTerm) {
+                $query->where('jobs.title', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('jobs.description', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('jobs.skills', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('jobs.category', 'like', '%' . $searchTerm . '%');
+            })
+            ->when($request->status, function ($query) use ($request) {
+                $query->where('trainer_applications.application_status', $request->status);
+            })
+            ->orderBy('trainer_applications.created_at', 'asc')
+            ->paginate(10);
+
+        return view('trainers.job-applications', compact('trainer', 'applications'));
     }
 
     public function store_review(Request $request, $job_id)

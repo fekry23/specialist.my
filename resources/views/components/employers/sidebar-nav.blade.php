@@ -1,9 +1,14 @@
 @props(['employer_detail'])
 
-<div class="left-nav-items">
+<div class="left-nav-items tw-w-52">
     <ul>
         <li class="employer-container">
-            <img src="/images/signup-img/freelancer-icon.png" alt="">
+            @if ($employer_detail->profile_picture === 'freelancer-icon.png')
+                <img class="tw-rounded tw-w-36 tw-h-36" src="/images/signup-img/freelancer-icon.png" alt="">
+            @else
+                <img class="tw-rounded tw-w-36 tw-h-36" src="{{ asset('storage/' . $employer_detail->profile_picture) }}"
+                    alt="">
+            @endif
             <h3>{{ $employer_detail->name }}</h3>
             <h5>{{ $employer_detail->email }}</h6>
         </li>
@@ -25,8 +30,9 @@
 
         <li class="{{ request()->is('employer/chat/*') ? 'active' : '' }}"><a href=""><i
                     class="fas fa-comments"></i>Chat</a></li>
-        <li class="{{ request()->is('employer/settings/*') ? 'active' : '' }}"><a href=""><i
-                    class="fas fa-user-cog"></i>Settings</a></li>
+        <li class="{{ request()->is('employer/settings/*') ? 'active' : '' }}"><a
+                href="{{ route('employer.show_settings_page', ['employer_id' => $employer_detail->id]) }}">
+                <i class="fas fa-user-cog"></i>Settings</a></li>
         <li>
             <form class="tw-inline" method="POST" action="/logout">
                 @csrf

@@ -86,24 +86,18 @@ class Job extends Model
             // Filter based on client history
             if ($history === 'No hires') {
                 // Exclude employers with no hires
-                $query->whereNotIn('id', function ($subquery) {
-                    $subquery->select('trainer_id')
-                        ->from('jobs')
-                        ->groupBy('trainer_id');
-                });
+                $query->whereDoesntHave('trainerApplications');
             } elseif ($history === '1-9') {
                 // Include employers with 1 to 9 hires
-                $query->whereIn('trainer_id', function ($subquery) {
+                $query->whereHas('trainerApplications', function ($subquery) {
                     $subquery->select('trainer_id')
-                        ->from('jobs')
                         ->groupBy('trainer_id')
                         ->havingRaw('COUNT(DISTINCT trainer_id) BETWEEN 1 AND 9');
                 });
             } elseif ($history === '10') {
                 // Include employers with 10 or more hires
-                $query->whereIn('trainer_id', function ($subquery) {
+                $query->whereHas('trainerApplications', function ($subquery) {
                     $subquery->select('trainer_id')
-                        ->from('jobs')
                         ->groupBy('trainer_id')
                         ->havingRaw('COUNT(DISTINCT trainer_id) >= 10');
                 });
@@ -116,5 +110,11 @@ class Job extends Model
             $query->whereIn('project_length', $length); // use whereIn to match multiple types
             //This is similar to SELECT * FROM table_name WHERE category LIKE '%category%'
         }
+    }
+
+    // One to many relationship
+    public function trainerApplications()
+    {
+        return $this->hasMany(TrainerApplication::class);
     }
 }

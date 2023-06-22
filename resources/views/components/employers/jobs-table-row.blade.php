@@ -25,9 +25,15 @@
 <td
     class="tw-px-6 tw-py-4 tw-whitespace-no-wrap tw-border-b tw-text-blue-900 tw-border-gray-500 tw-text-sm tw-leading-5">
     <div class="tw-flex tw-items-center">
-        @if ($job->image)
+        @if (in_array($job->image, ['candidate-profile.png', 'user.jpg', 'user2.png', 'user3.png', 'user4.png']))
             <img class="tw-w-10 tw-h-10 tw-rounded-full" src="{{ url('/images/find-candidate/' . $job->image) }}"
                 alt="">
+        @elseif($job->image === 'freelancer-icon.png')
+            <img class="tw-w-10 tw-h-10 tw-rounded-full" src="/images/signup-img/freelancer-icon.png" alt="">
+        @elseif(!$job->image)
+            {{-- Display nothing --}}
+        @else
+            <img class="tw-w-10 tw-h-10 tw-rounded-full" src="{{ asset('storage/' . $job->image) }}" alt="">
         @endif
         <p class="tw-ml-2">{{ $job->name }}</p>
     </div>
@@ -38,7 +44,6 @@
         <span aria-hidden class="tw-absolute tw-inset-0 tw-rounded-full tw-opacity-50"></span>
         <span class="tw-relative tw-text-xs">{{ $job->status }}</span>
     </span>
-
 </td>
 <td class="tw-px-6 tw-py-4 tw-whitespace-no-wrap tw-text-center tw-border-b tw-border-gray-500 tw-text-sm tw-leading-5">
     {{-- Show applicants button if there's no specialist hired --}}
@@ -74,7 +79,7 @@
 
     <a href="/employer/jobs/{{ $job->job_id }}/progress" class="tw-no-underline">
         <button
-            class="tw-px-5 tw-py-2 tw-cursor-pointer tw-bg-white tw-border-blue-500 tw-border tw-text-blue-500 tw-rounded tw-transition tw-duration-300 hover:tw-bg-blue-700 hover:tw-text-white focus:tw-outline-none">View
+            class="tw-px-5 tw-py-2 tw-mt-2 tw-cursor-pointer tw-bg-white tw-border-blue-500 tw-border tw-text-blue-500 tw-rounded tw-transition tw-duration-300 hover:tw-bg-blue-700 hover:tw-text-white focus:tw-outline-none">View
             Progress</button>
     </a>
 </td>

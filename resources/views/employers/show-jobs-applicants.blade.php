@@ -96,7 +96,9 @@
                                 alt="{{ $selected_applicant->name ?? 'Trainer' }} Profile Image"
                                 class="tw-rounded tw-w-44 tw-h-44 tw-mx-auto">
                         @else
-                            <div class="tw-w-8 tw-h-8 tw-bg-gray-300"></div>
+                            <img src="/images/signup-img/freelancer-icon.png"
+                                alt="{{ $selected_applicant->name ?? 'Trainer' }} Profile Image"
+                                class="tw-rounded tw-w-44 tw-h-44 tw-mx-auto">
                         @endif
                     </div>
 
