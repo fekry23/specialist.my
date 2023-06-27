@@ -311,11 +311,10 @@ class EmployerContoller extends Controller
         $paymentIntentId = $request->input('paymentIntentId');
 
         $paymentIntent = $this->getPaymentIntent($rate, $paymentIntentId);
-
         if ($request->specialist_rate) {
             $paymentIntent->update($paymentIntent->id, [
                 'amount' => $request->specialist_rate * 100, // Amount in cents
-                "receipt_email" => $employer_email,
+                "receipt_email" => $employer_email->email,
             ]);
 
             $paymentIntentId = $paymentIntent->id;

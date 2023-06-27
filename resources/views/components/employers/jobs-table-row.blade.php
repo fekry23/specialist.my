@@ -69,7 +69,7 @@
         </a>
         {{-- Review Button --}}
     @elseif($job->status == 'Need to be reviewed' && $job->name)
-        <a href="" class="tw-no-underline">
+        <a href="/employer/jobs/{{ $job->job_id }}/review" class="tw-no-underline">
             <button type="button"
                 class="tw-px-5 tw-py-2 tw-bg-white tw-border-blue-500 tw-border tw-text-blue-500 tw-rounded tw-transition tw-duration-300 tw-cursor-pointer hover:tw-bg-blue-700 hover:tw-text-white focus:tw-outline-non">
                 Give Review
