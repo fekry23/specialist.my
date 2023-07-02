@@ -1,4 +1,4 @@
-@props(['previous_page', 'current_page'])
+@props(['previous_page', 'current_page', 'job_id'])
 
 <nav class="tw-flex tw-pb-4" aria-label="Breadcrumb">
     <ol class="tw-list-none tw-inline-flex tw-items-center tw-space-x-1 md:tw-space-x-3">
@@ -27,6 +27,9 @@
                         class=" tw-no-underline tw-ml-1 tw-text-sm tw-font-medium tw-text-gray-700 tw-hover:text-blue-600 md:tw-ml-2 dark:tw:text-gray-400 dark:tw:hover:text-white">{{ $previous_page }}</a>
                 @elseif($previous_page === 'Completed Job Listings')
                     <a href="{{ route('employer.completed_jobs') }}"
+                        class=" tw-no-underline tw-ml-1 tw-text-sm tw-font-medium tw-text-gray-700 tw-hover:text-blue-600 md:tw-ml-2 dark:tw:text-gray-400 dark:tw:hover:text-white">{{ $previous_page }}</a>
+                @elseif($previous_page === 'Job Progress')
+                    <a href="{{ route('employer.show_job_progress', ['job' => $job_id]) }}"
                         class=" tw-no-underline tw-ml-1 tw-text-sm tw-font-medium tw-text-gray-700 tw-hover:text-blue-600 md:tw-ml-2 dark:tw:text-gray-400 dark:tw:hover:text-white">{{ $previous_page }}</a>
                 @endif
 

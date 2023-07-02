@@ -119,13 +119,8 @@
 
                         {{-- If there's a trainer/specialist currently in charge --}}
                         @isset($trainer)
-                            <button type="button"
-                                class="tw-px-5 tw-py-2 tw-cursor-pointer tw-bg-specialist tw-border-specialist tw-border tw-text-white {{ $trainer && $trainer->id ? 'tw-rounded-l-lg' : '' }} tw-transition tw-duration-300 hover:tw-bg-white hover:tw-text-specialist focus:tw-outline-none">
-                                Message Specialist
-                            </button>
-
                             <button type="button" id="remove-btn"
-                                class="tw-px-5 tw-py-2 tw-bg-specialist tw-border-specialist tw-border tw-text-white tw-rounded-r-lg {{ $completed_job_details ? 'tw-opacity-50 tw-cursor-not-allowed' : 'tw-transition tw-duration-300 tw-opacity-100 tw-cursor-pointer hover:tw-bg-white hover:tw-text-specialist focus:tw-outline-none' }} "
+                                class="tw-px-5 tw-py-2 tw-bg-specialist tw-border-specialist tw-border tw-text-white tw-rounded-lg {{ $completed_job_details ? 'tw-opacity-50 tw-cursor-not-allowed' : 'tw-transition tw-duration-300 tw-opacity-100 tw-cursor-pointer hover:tw-bg-white hover:tw-text-specialist focus:tw-outline-none' }} "
                                 {{ $completed_job_details ? 'disabled' : '' }}>
                                 Remove Specialist
                             </button>

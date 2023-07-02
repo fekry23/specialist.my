@@ -12,8 +12,9 @@
             <div class="left-container">
                 <button id="employer" data-user-type="employer">
                     <img src="/images/signup-img/hiring-icon.png" alt="">
-                    <h2>I'm a employer, hiring for a project</h2>
+                    <h2>I'm an employer, hiring for a project</h2>
                 </button>
+
             </div>
             <div class="right-container">
                 <button id="trainer" data-user-type="trainer">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Job;
+use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Models\TrainerApplication;
@@ -16,14 +17,29 @@ class TrainerController extends Controller
     // Show all trainers
     public function index()
     {
-        return view('find-trainers.index', [ //folderName.fileName
+        $trainers = Trainer::latest()->filter(request(['keywords', 'category', 'state', 'rate', 'level']))->paginate(10);
 
-            //latest get the latest data first
-            //filter according to the requested tag
-            //get the data
-            'trainers' => Trainer::latest()->filter(request(['keywords', 'category', 'state', 'rate', 'level']))->paginate(10)
+        // Get the total number of reviews for each trainer
+        $trainerIds = $trainers->pluck('id');
+        $reviewsCount = Review::whereIn('trainer_id', $trainerIds)
+            ->select('trainer_id', DB::raw('count(*) as count'))
+            ->groupBy('trainer_id')
+            ->pluck('count', 'trainer_id');
+
+        // Calculate the average review stars for each trainer
+        $averageStars = Review::whereIn('trainer_id', $trainerIds)
+            ->select('trainer_id', DB::raw('avg(rating_value) as average'))
+            ->groupBy('trainer_id')
+            ->pluck('average', 'trainer_id');
+
+        return view('find-trainers.index', [
+            'trainers' => $trainers,
+            'reviewsCount' => $reviewsCount,
+            'averageStars' => $averageStars,
         ]);
     }
+
+
 
     //Show single job
     public function show(Trainer $id)
@@ -181,7 +197,7 @@ class TrainerController extends Controller
             ->first();
 
         $completed_jobs = DB::table('completed_jobs')
-            ->select('completed_jobs.id', 'jobs.id AS job_id', 'jobs.title', 'employers.profile_image', 'employers.name', 'jobs.status')
+            ->select('completed_jobs.id', 'jobs.id AS job_id', 'jobs.title', 'employers.profile_picture', 'employers.name', 'jobs.status')
             ->join('jobs', 'completed_jobs.job_id', '=', 'jobs.id')
             ->leftJoin('employers', 'completed_jobs.employer_id', '=', 'employers.id')
             ->where('completed_jobs.employer_id', $userId)

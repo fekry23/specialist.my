@@ -4,10 +4,11 @@
     <ul>
         <li class="employer-container">
             @if ($trainer_detail->image === 'freelancer-icon.png')
-                <img class="tw-rounded tw-w-36 tw-h-36" src="/images/signup-img/freelancer-icon.png" alt="">
-            @else
-                <img class="tw-rounded tw-w-36 tw-h-36" src="{{ asset('storage/' . $trainer_detail->image) }}"
+                <img class="tw-rounded tw-w-36 tw-h-auto tw-max-w-full" src="/images/signup-img/freelancer-icon.png"
                     alt="">
+            @else
+                <img class="tw-rounded tw-w-36 tw-h-auto tw-max-w-full"
+                    src="{{ asset('storage/' . $trainer_detail->image) }}" alt="">
             @endif
             <h3>{{ $trainer_detail->name }}</h3>
             <h5>{{ $trainer_detail->email }}</h6>
@@ -27,8 +28,6 @@
             </ul>
         </li>
 
-        <li class="{{ request()->is('trainer/chat/*') ? 'active' : '' }}"><a href=""><i
-                    class="fas fa-comments"></i>Chat</a></li>
         <li class="{{ request()->is('trainer/settings/*') ? 'active' : '' }}"><a
                 href="{{ route('trainer.show_settings_page', ['trainer_id' => $trainer_detail->id]) }}">
                 <i class="fas fa-user-cog"></i>Settings</a></li>

@@ -22,16 +22,16 @@
     class="tw-px-6 tw-py-4 tw-whitespace-no-wrap tw-text-center tw-border-b tw-text-blue-900 tw-border-gray-500 tw-text-sm tw-leading-5">
     <div class="tw-text-sm tw-leading-5 tw-text-blue-900">{{ $job->updated_at }}</div>
 </td>
-<td class="tw-flex tw-justify-around tw-px-6 tw-py-4 tw-text-center tw-text-sm tw-leading-5">
+<td class="tw-flex  tw-px-6 tw-py-4 tw-text-center tw-text-sm tw-leading-5">
     <a href="/employer/jobs/{{ $job->id }}">
         <button
-            class="tw-inline-block tw-w-20 tw-bg-white hover:tw-bg-gray-100 tw-text-gray-800 tw-font-semibold tw-py-1 tw-px-2 tw-border tw-border-gray-400 tw-rounded tw-shadow tw-text-sm">
+            class="tw-w-20 tw-bg-white hover:tw-bg-gray-100 tw-text-gray-800 tw-font-semibold tw-py-1 tw-px-2 tw-border tw-border-gray-400 tw-rounded tw-shadow tw-text-sm">
             View
         </button>
     </a>
     <a>
         <button id="delete-btn"
-            class="tw-inline-block tw-w-20 tw-bg-red-600 hover:tw-bg-red-300 tw-text-white tw-font-semibold tw-py-1 tw-px-2 tw-border tw-border-gray-400 tw-rounded tw-shadow tw-text-sm">
+            class="tw-w-20 tw-ml-2 tw-bg-red-600 hover:tw-bg-red-300 tw-text-white tw-font-semibold tw-py-1 tw-px-2 tw-border tw-border-gray-400 tw-rounded tw-shadow tw-text-sm">
             Delete
         </button>
     </a>

@@ -89,7 +89,8 @@
                 @unless (count($trainers) == 0)
                     @foreach ($trainers as $trainer)
                         {{-- To access compononents, use " <x-file-name/> --}}
-                        <x-find-trainers.trainer-card :trainer="$trainer" /> <!-- pass job as prop -->
+                        <x-find-trainers.trainer-card :trainer="$trainer" :reviewsCount="$reviewsCount" :averageStars="$averageStars" />
+                        <!-- pass job as prop -->
                     @endforeach
                 @else
                     <div class="no-listings-div">

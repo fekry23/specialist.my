@@ -148,7 +148,7 @@
 
             {{-- Left Container --}}
             <div class="tw-bg-white tw-mx-auto  tw-px-8 tw-py-4 tw-w-full tw-rounded">
-                <x-employers.jobs-breadcrumb :previous_page="'Progress Page'" :current_page="'Payment Page'" />
+                <x-employers.jobs-breadcrumb :previous_page="'Job Progress'" :current_page="'Payment Page'" :job_id="$job->id" />
 
                 <form id="payment-form-1"
                     action="{{ route('employer.update_payment', ['job_id' => $job->id, 'rate' => $job->rate]) }}"
@@ -255,7 +255,7 @@
             console.log('Specialist Rate:', updatedRate);
         }
 
-        let emailAddress = '';
+        let emailAddress = '{{ $user->email }}';
 
         // Fetches a payment intent and captures the client secret
         async function initialize() {

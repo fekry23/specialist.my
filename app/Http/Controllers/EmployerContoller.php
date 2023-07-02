@@ -181,8 +181,7 @@ class EmployerContoller extends Controller
         $user = auth()->user();
 
         $paymentIntentId = request()->query('paymentIntentId') ?? null;
-        $paymentIntent = $this->getPaymentIntent($rate, $paymentIntentId);
-
+        $paymentIntent = $this->getPaymentIntent($rate, $paymentIntentId, $job_id);
         $clientSecret = $paymentIntent->client_secret;
         $paymentIntentId = $paymentIntent->id;
         $paymentAmount = $paymentIntent->amount;
@@ -301,20 +300,14 @@ class EmployerContoller extends Controller
 
     public function update_payment(Request $request, $job_id, $rate)
     {
-        // Get the employer email
-        $employer_email = DB::table('jobs')
-            ->select('employers.email AS email')
-            ->join('employers', 'jobs.employer_id', '=', 'employers.id')
-            ->where('jobs.id', $job_id)
-            ->first();
 
         $paymentIntentId = $request->input('paymentIntentId');
 
-        $paymentIntent = $this->getPaymentIntent($rate, $paymentIntentId);
+
+        $paymentIntent = $this->getPaymentIntent($rate, $paymentIntentId, $job_id);
         if ($request->specialist_rate) {
             $paymentIntent->update($paymentIntent->id, [
                 'amount' => $request->specialist_rate * 100, // Amount in cents
-                "receipt_email" => $employer_email->email,
             ]);
 
             $paymentIntentId = $paymentIntent->id;
@@ -323,8 +316,15 @@ class EmployerContoller extends Controller
         }
     }
 
-    private function getPaymentIntent($rate, $paymentIntentId = null)
+    private function getPaymentIntent($rate, $paymentIntentId = null, $job_id)
     {
+        // Get the employer email
+        $employer_email = DB::table('jobs')
+            ->select('employers.email AS email')
+            ->join('employers', 'jobs.employer_id', '=', 'employers.id')
+            ->where('jobs.id', $job_id)
+            ->first();
+
         Stripe::setApiKey(env('STRIPE_SECRET'));
 
         if ($paymentIntentId) {
@@ -338,6 +338,7 @@ class EmployerContoller extends Controller
                 'automatic_payment_methods' => [
                     'enabled' => true,
                 ],
+                'receipt_email' => $employer_email->email,
             ]);
         }
     }

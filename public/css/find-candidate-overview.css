@@ -117,7 +117,7 @@
 }
 /* Description */
 .candidate-profile .description-profile {
-    min-width: 1440px;
+    max-width: 1440px;
 }
 @media (max-width:1024px) {
     .candidate-profile .description-profile h3 {

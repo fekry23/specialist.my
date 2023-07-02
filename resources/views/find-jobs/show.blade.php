@@ -111,7 +111,7 @@
                 <x-find-jobs.apply-jobs-form :job="$job" />
             @else
                 <div class="apply-btn-profile">
-                    <button id="apply-btn"> Create a Specialist Account to Apply !</button>
+                    <a href="/register"><button id="apply-btn"> Create a Specialist Account to Apply !</button></a>
                 </div>
             @endauth
 

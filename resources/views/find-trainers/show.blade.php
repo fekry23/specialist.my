@@ -28,7 +28,7 @@
 
                 <div class="description-profile">
                     <h3 class="tw-font-bold">{{ $trainer->specialization_title }}</h3>
-                    <p style="margin-top: 1%;">{{ $trainer->specialization_description }}</p>
+                    <p class="tw-mt-[1%]">{{ $trainer->specialization_description }}</p>
                 </div>
             @endisset
 
@@ -112,7 +112,7 @@
                 <x-find-trainers.offer-job-form :jobs="$jobs" :trainer_id="$trainer->id" />
             @else
                 <div class="hire-btn-profile">
-                    <button> Create an Employer Account to Hire!</button>
+                    <a href="/register"><button> Create an Employer Account to Hire!</button></a>
                 </div>
             @endauth
 
