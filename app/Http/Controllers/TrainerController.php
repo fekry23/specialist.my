@@ -133,21 +133,25 @@ class TrainerController extends Controller
             ->join('jobs', 'active_jobs.job_id', '=', 'jobs.id')
             ->leftJoin('employers', 'active_jobs.employer_id', '=', 'employers.id')
             ->where('active_jobs.trainer_id', '=', $trainer_id)
-            ->whereNotIn('jobs.status', ['Pending Payment', 'Completed'])
+            ->whereNotIn('jobs.status', ['Pending payment', 'Completed'])
             ->orderBy('jobs.id', 'asc')
             ->paginate(5);
 
 
+        // dd($active_jobs);
+
+
         $pendingPayment_jobs = DB::table('active_jobs')
-            ->select('active_jobs.id', 'jobs.id AS job_id', 'jobs.title', 'trainers.image', 'trainers.name', 'jobs.status')
+            ->select('active_jobs.id', 'jobs.id AS job_id', 'jobs.title', 'employers.profile_picture', 'employers.name', 'jobs.status')
             ->join('jobs', 'active_jobs.job_id', '=', 'jobs.id')
-            ->leftJoin('trainers', 'active_jobs.trainer_id', '=', 'trainers.id')
+            ->leftJoin('employers', 'active_jobs.employer_id', '=', 'employers.id')
             ->where('active_jobs.trainer_id', '=', $trainer_id)
             ->whereNotIn('jobs.status', ['On going', 'Need to be reviewed', 'Completed'])
             ->orderBy('jobs.id', 'asc')
             ->paginate(5);
 
-        // dd($active_jobs);
+        // dd($pendingPayment_jobs);
+
 
         return view('trainers.dashboard', [
             'trainer_details' => $trainer_details,
@@ -336,7 +340,7 @@ class TrainerController extends Controller
             'Basic',
             'Conversational',
             'Fluent',
-            'Native & bilingual',
+            'Native or bilingual',
         ];
 
         // dd($request->all());
@@ -369,7 +373,7 @@ class TrainerController extends Controller
             ],
             'contact_no' => [
                 'nullable',
-                'regex:/^(\+?6?01)[0-46-9]-*[0-9]{7,8}$/',
+                'regex:/^(\+?6?01)[0-9]{8}$/'
             ],
             'hourly_rate' => 'nullable|numeric',
             'category' => [

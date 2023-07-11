@@ -17,7 +17,8 @@
     }
 
     .error-message {
-        background-color: red
+        background-color: white;
+        border: black 1px solid;
     }
 
     .error-message p {

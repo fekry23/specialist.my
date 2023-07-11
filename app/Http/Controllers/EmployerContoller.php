@@ -62,7 +62,7 @@ class EmployerContoller extends Controller
             ->join('jobs', 'active_jobs.job_id', '=', 'jobs.id')
             ->leftJoin('trainers', 'active_jobs.trainer_id', '=', 'trainers.id')
             ->where('active_jobs.employer_id', $employer_id)
-            ->whereNotIn('jobs.status', ['Pending Payment', 'Completed'])
+            ->whereNotIn('jobs.status', ['Pending payment', 'Completed'])
             ->orderBy('jobs.id', 'asc')
             ->paginate(5);
 
@@ -180,6 +180,7 @@ class EmployerContoller extends Controller
         $job = Job::findOrFail($job_id);
         $user = auth()->user();
 
+        $stripeCustomer = $user->createOrGetStripeCustomer();
         $paymentIntentId = request()->query('paymentIntentId') ?? null;
         $paymentIntent = $this->getPaymentIntent($rate, $paymentIntentId, $job_id);
         $clientSecret = $paymentIntent->client_secret;
@@ -246,7 +247,7 @@ class EmployerContoller extends Controller
             ],
             'phone_number' => [
                 'nullable',
-                'regex:/^(\+?6?01)[0-46-9]-*[0-9]{7,8}$/',
+                'regex:/^(\+?6?01)[0-9]{8}$/'
             ],
             'gender' => [
                 'nullable',
@@ -312,7 +313,12 @@ class EmployerContoller extends Controller
 
             $paymentIntentId = $paymentIntent->id;
 
-            return redirect()->route('employer.show_payment_page', ['job_id' => $job_id, 'rate' => $rate, 'paymentIntentId' => $paymentIntentId])->with('success-message', 'Amount successfully updated!');
+            // Update the 'rate'' column in the jobs table based on the provided parameters
+            DB::table('jobs')
+                ->where('id', $job_id)
+                ->update(['rate' => $request->specialist_rate]);
+
+            return redirect()->route('employer.show_payment_page', ['job_id' => $job_id, 'rate' => $request->specialist_rate, 'paymentIntentId' => $paymentIntentId])->with('success-message', 'Amount successfully updated!');
         }
     }
 

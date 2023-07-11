@@ -132,12 +132,16 @@
                 <div class="tw-flex tw-items-center">
 
                     <div class="tw-rounded-full tw-overflow-hidden tw-mr-4">
-                        @if (isset($trainer->image) && file_exists(public_path('/images/find-candidate/' . $trainer->image)))
-                            <img src="{{ url('/images/find-candidate/' . $trainer->image) }}"
-                                alt="{{ $trainer->name ?? 'Trainer' }} Profile Image" class="tw-rounded tw-w-36 tw-h-36">
-                        @else
-                            <div class="tw-w-36 tw-h-36 tw-bg-gray-300"></div>
-                        @endif
+                        @isset($trainer)
+                            @if ($trainer->image === 'freelancer-icon.png')
+                                <img class="tw-rounded tw-w-36 tw-h-36" src="/images/signup-img/freelancer-icon.png"
+                                    alt="">
+                            @else
+                                <img class="tw-rounded tw-w-36 tw-h-36" src="{{ asset('storage/' . $trainer->image) }}"
+                                    alt="">
+                            @endif
+                        @endisset
+
                     </div>
                     <div>
                         <h2 class="tw-text-lg tw-font-semibold tw-text-gray-900">{{ $trainer->name ?? 'N/A' }}</h2>

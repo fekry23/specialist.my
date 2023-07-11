@@ -29,7 +29,11 @@
             <p>{{ $job->title }}</p>
         </div>
         <div class="trainer-content">
-            <img src="{{ url('/images/find-candidate/' . $job->image) }}" alt="">
+            @if ($job->image === 'freelancer-icon.png')
+                <img class="tw-rounded tw-w-24" src="/images/signup-img/freelancer-icon.png" alt="">
+            @else
+                <img class="tw-rounded tw-w-24" src="{{ asset('storage/' . $job->image) }}" alt="">
+            @endif
             <p>{{ $job->name }}</p>
         </div>
         <div class="status-content">

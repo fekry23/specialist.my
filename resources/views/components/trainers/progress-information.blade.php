@@ -33,6 +33,18 @@
         </span>
     </h3>
 
+    @if ($status->status_from_status_tracker_table == 'Pending payment')
+        <p class="tw-text-base tw-font-normal tw-text-gray-500 dark:tw-text-gray-400">
+            The expected payment amount for you is <span class="tw-font-bold">RM {{ $status->rate }}</span>.</p>
+        <p class="tw-mb-4 tw-text-base tw-font-normal tw-text-gray-500 dark:tw-text-gray-400">If this
+            amount
+            is not correct or if you have any
+            concerns, please discuss again with the employer.</p>
+
+        <p class="tw-mb-4 tw-text-base tw-font-normal tw-text-gray-500 dark:tw-text-gray-400">
+            A receipt will be automatically sent to your email once the payment has been completed.</p>
+    @endif
+
     {{-- The description for completed status  --}}
     @isset($completed_job_details)
         @if ($status->status_from_status_tracker_table == 'Completed')

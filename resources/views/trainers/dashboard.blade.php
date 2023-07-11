@@ -89,7 +89,7 @@
                                     <h4 class="tw-font-semibold">Title</h4>
                                 </div>
                                 <div class="trainer-content-header">
-                                    <h4 class="tw-font-semibold">Specialist Name</h4>
+                                    <h4 class="tw-font-semibold">Employer Name</h4>
                                 </div>
                                 <div class="status-content-header">
                                     <h4 class="tw-font-semibold">Status</h4>
@@ -131,7 +131,7 @@
                                     <h4 class="tw-font-semibold">Title</h4>
                                 </div>
                                 <div class="trainer-content-header">
-                                    <h4 class="tw-font-semibold">Specialist Name</h4>
+                                    <h4 class="tw-font-semibold">Employer Name</h4>
                                 </div>
                                 <div class="status-content-header">
                                     <h4 class="tw-font-semibold">Status</h4>

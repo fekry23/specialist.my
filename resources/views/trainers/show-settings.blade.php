@@ -106,7 +106,7 @@
             <div class="form-input-container">
                 <label for="contact_no">Contact Number</label>
                 <input type="tel" id="contact_no" name="contact_no" value="{{ $trainer_details->contact_no }}"
-                    placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+                    placeholder="0129994568" pattern="[0-9]{3}[0-9]{3}[0-9]{4}">
 
                 @error('contact_no')
                     <p class="error-message">{{ $message }}</p>
@@ -213,14 +213,17 @@
                 <label for="english_level">English Level</label>
                 <select name="english_level" id="english_level">
                     <option value=""></option>
-                    <option value="Basic" {{ $trainer_details->state == 'Basic' ? 'selected' : '' }}>Basic</option>
-                    <option value="Conversational" {{ $trainer_details->state == 'Conversational' ? 'selected' : '' }}>
+                    <option value="Basic" {{ $trainer_details->english_level == 'Basic' ? 'selected' : '' }}>Basic
+                    </option>
+                    <option value="Conversational"
+                        {{ $trainer_details->english_level == 'Conversational' ? 'selected' : '' }}>
                         Conversational
                     </option>
-                    <option value="Fluent" {{ $trainer_details->state == 'Fluent' ? 'selected' : '' }}>Fluent
+                    <option value="Fluent" {{ $trainer_details->english_level == 'Fluent' ? 'selected' : '' }}>Fluent
                     </option>
                     <option value="Native or bilingual"
-                        {{ $trainer_details->state == 'Native or bilingual' ? 'selected' : '' }}>Native or bilingual
+                        {{ $trainer_details->english_level == 'Native or bilingual' ? 'selected' : '' }}>Native or
+                        bilingual
                     </option>
                 </select>
 

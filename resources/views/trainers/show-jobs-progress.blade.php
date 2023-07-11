@@ -101,17 +101,6 @@
                         Specialist Information
                     </h1>
 
-                    {{-- 1 Buttons --}}
-                    <div class="tw-inline-flex tw-rounded-md tw-shadow-sm" role="group">
-
-                        {{-- If there's a trainer/specialist currently in charge --}}
-                        @isset($trainer)
-                            <button type="button"
-                                class="tw-px-5 tw-py-2 tw-cursor-pointer tw-bg-specialist tw-border-specialist tw-border tw-text-white tw-rounded-lg tw-transition tw-duration-300 hover:tw-bg-white hover:tw-text-specialist focus:tw-outline-none">
-                                Message Specialist
-                            </button>
-                        @endisset
-                    </div>
                 </div>
 
                 {{-- Specialist Details --}}

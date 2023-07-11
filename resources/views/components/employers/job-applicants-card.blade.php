@@ -21,7 +21,7 @@
             </p>
         </div>
         <div class="tw-inline-flex tw-items-center tw-text-base tw-font-semibold tw-text-gray-900 dark:tw-text-white">
-            RM {{ $application->rates }}
+            RM {{ $application->rates ?? 0 }}
         </div>
     </a>
 </li>

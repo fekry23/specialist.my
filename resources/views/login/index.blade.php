@@ -35,8 +35,8 @@
                 <div class="form-input-container">
                     <input type="password" id="password" name="password" value="{{ old('password') }}"
                         placeholder="Password">
-                    @error('new-password')
-                        <p class="error-message">{{ $message }}</p>
+                    @error('password')
+                        <p class="password">{{ $message }}</p>
                     @enderror
                 </div>
 
