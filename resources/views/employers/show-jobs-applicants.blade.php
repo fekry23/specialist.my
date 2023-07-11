@@ -5,7 +5,7 @@
 
 @section('content')
     {{-- Container Div --}}
-    <div class="tw-container tw-flex tw-mx-auto tw-px-4 tw-py-8">
+    <div class="tw-container tw-flex tw-mx-auto tw-px-4 tw-py-8 tw-h-screen">
 
         <!-- Left Container Content -->
         <div class="tw-w-1/3">
@@ -41,8 +41,8 @@
 
             {{-- Job Applicants card --}}
             <div
-                class="tw-flex-none tw-w-full tw-p-4 tw-bg-white tw-border tw-border-solid tw-border-gray-200 tw-rounded-lg tw-shadow sm:tw-p-8 dark:tw-bg-gray-800 dark:tw-border-gray-700">
-                <x-employers.active-jobs-breadcrumb :current_page="'Specialist Applicants'" />
+                class="tw-flex-none tw-w-full tw-p-4 tw-bg-white tw-border tw-border-solid tw-border-gray-200 tw-rounded-lg tw-shadow sm:tw-p-8">
+                <x-employers.jobs-breadcrumb :previous_page="'Active Job Listings'" :current_page="'Specialist Applicants'" />
 
                 <h1
                     class="tw-mb-4 tw-text-3xl tw-font-extrabold tw-text-gray-900 tw-dark:text-white tw-md:text-5xl tw-lg:text-6xl">
@@ -77,10 +77,6 @@
                                 class="tw-px-5 tw-py-2 tw-cursor-pointer tw-bg-red-400 tw-border tw-border-red-400 tw-text-white tw-transition tw-duration-300 hover:tw-bg-white hover:tw-text-red-400 focus:tw-outline-none">
                                 Reject
                             </button>
-                            <button type="button"
-                                class="tw-px-5 tw-py-2 tw-cursor-pointer tw-bg-blue-300 tw-border tw-border-blue-300 tw-text-white tw-transition tw-duration-300 hover:tw-bg-white hover:tw-text-blue-300 focus:tw-outline-none">
-                                Message
-                            </button>
                         </div>
                     </div>
 
@@ -96,7 +92,9 @@
                                 alt="{{ $selected_applicant->name ?? 'Trainer' }} Profile Image"
                                 class="tw-rounded tw-w-44 tw-h-44 tw-mx-auto">
                         @else
-                            <div class="tw-w-8 tw-h-8 tw-bg-gray-300"></div>
+                            <img src="/images/signup-img/freelancer-icon.png"
+                                alt="{{ $selected_applicant->name ?? 'Trainer' }} Profile Image"
+                                class="tw-rounded tw-w-44 tw-h-44 tw-mx-auto">
                         @endif
                     </div>
 

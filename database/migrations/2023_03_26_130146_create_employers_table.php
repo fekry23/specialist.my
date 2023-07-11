@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('contact_no')->nullable();
             $table->string('gender')->nullable();
             $table->string('company_name')->nullable();
+            $table->string('profile_picture')->default('freelancer-icon.png');
             $table->timestamps();
         });
     }

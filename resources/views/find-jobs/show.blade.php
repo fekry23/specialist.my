@@ -23,7 +23,7 @@
 
             <!-- Description, need to be modified using PHP in the future -->
             <div class="description-profile">
-                <h3>Description</h3>
+                <h3 class="tw-font-bold">Description</h3>
                 <p style="margin-top: 1%;">{{ $job->description }}</p>
             </div>
             <!-- Description, need to be modified using PHP in the future -->
@@ -32,7 +32,7 @@
 
             <!-- Categories, need to be modified using PHP in the future -->
             <div class="category-profile">
-                <h3>Category</h3>
+                <h3 class="tw-font-bold">Category</h3>
                 <button>
                     <span>{{ $job->category }}</span> </button>
             </div>
@@ -65,7 +65,7 @@
 
             <!-- Skills and expertise, need to be modified using PHP in the future -->
             <div class="skills-profile">
-                <h3>Skills & Expertise</h3>
+                <h3 class="tw-font-bold">Skills & Expertise</h3>
                 <div class="skills-profile-container">
                     <x-job-tags :tagsCsv="$job->skills" /> {{-- Component for Skills tags in overview --}}
                 </div>
@@ -78,7 +78,7 @@
             <div class="contact-profile">
 
                 <div class="header">
-                    <h3>About the client</h3>
+                    <h3 class="tw-font-bold">About the client</h3>
                 </div>
                 <div class="parent-small-container">
                     <div class="small-container">
@@ -103,9 +103,17 @@
             <div class="hr"></div>
 
             <!-- Bring to hire profile, if signed in. If not go to log in page -->
-            <div class="apply-btn-profile">
-                <button> Apply Now !</button>
-            </div>
+            @auth('trainer')
+                <div class="apply-btn-profile">
+                    <button id="apply-btn"> Apply Now !</button>
+                </div>
+
+                <x-find-jobs.apply-jobs-form :job="$job" />
+            @else
+                <div class="apply-btn-profile">
+                    <a href="/register"><button id="apply-btn"> Create a Specialist Account to Apply !</button></a>
+                </div>
+            @endauth
 
         </div>
     </div>
@@ -117,5 +125,22 @@
         function goBack() {
             window.history.back();
         }
+    </script>
+
+    {{-- Apply job form --}}
+    <script>
+        var applyForm = document.getElementById("apply-job-form");
+        var applyFormBtn = document.getElementById("apply-btn");
+        var cancelFormBtn = document.getElementById("cancel-apply-job-btn");
+
+        applyFormBtn.addEventListener("click", function() {
+            applyForm.classList.remove("tw-hidden");
+            applyForm.classList.add("tw-flex");
+        });
+
+        cancelFormBtn.addEventListener("click", function() {
+            applyForm.classList.remove("tw-flex");
+            applyForm.classList.add("tw-hidden");
+        })
     </script>
 @endsection

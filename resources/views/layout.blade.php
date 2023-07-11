@@ -17,42 +17,48 @@
     <nav class="navbar">
         <div class="navbar-logo">
             <a href="/">
-                <h3>Specialist.my</h3>
+                <h3 class="tw-font-black">Specialist.my</h3>
             </a>
         </div>
         <ul class="navbar-nav">
-            <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ url('/find-candidate') }}">Find Candidate</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ url('/find-job') }}">Find Jobs</a></li>
+            <li class="nav-item"><a class="nav-link tw-font-medium" href="/">Home</a></li>
+            <li class="nav-item"><a class="nav-link tw-font-medium" href="{{ url('/find-candidate') }}">Find
+                    Candidate</a></li>
+            <li class="nav-item"><a class="nav-link tw-font-medium" href="{{ url('/find-job') }}">Find Jobs</a></li>
 
             @auth('employer')
-                <li class="nav-item"><a class="nav-link"
+                <li class="nav-item"><a class="nav-link tw-font-medium"
                         href="{{ url('/employer/dashboard', Auth::guard('employer')->id()) }}">Employer Dashboard</a></li>
-            @elseif(auth('trainer')->check())
-                <li class="nav-item"><a class="nav-link"
-                        href="{{ url('/trainer/dashboard', Auth::guard('trainer')->id()) }}">Trainer Dashboard</a></li>
-            @else
-                <li class="nav-item"><a class="nav-link register-link" href="{{ url('/register') }}"><i
-                            class="fas fa-user-plus"></i>&nbsp;Register</a></li>
-                <li class="nav-item"><a class="nav-link login-link" href="{{ url('/login') }}"><i
-                            class="fas fa-sign-in-alt"></i>&nbsp;Login</a></li>
-            @endauth
-
-
-            @auth('employer', 'trainer')
                 <li class="nav-item">
                     <form class="tw-inline" method="POST" action="/logout">
                         @csrf
                         <button type="submit"
                             class="tw-text-black tw-bg-white tw-border-transparent hover:tw-text-light-blue-200 tw-text-lg tw-cursor-pointer">
                             <i class="fas fa-sign-out-alt tw-text-lg"></i>
-                            <span>Logout</span>
+                            <span class="tw-font-medium">Logout</span>
                         </button>
                     </form>
                 </li>
+                @elseauth('trainer')
+                <li class="nav-item"><a class="nav-link tw-font-medium"
+                        href="{{ url('/trainer/dashboard', Auth::guard('trainer')->id()) }}">Specialist Dashboard</a></li>
+                <li class="nav-item">
+                    <form class="tw-inline" method="POST" action="/logout">
+                        @csrf
+                        <button type="submit"
+                            class="tw-text-black tw-bg-white tw-border-transparent hover:tw-text-light-blue-200 tw-text-lg tw-cursor-pointer">
+                            <i class="fas fa-sign-out-alt tw-text-lg"></i>
+                            <span class="tw-font-medium">Logout</span>
+                        </button>
+                    </form>
+                </li>
+            @else
+                <li class="nav-item"><a class="nav-link register-link tw-font-medium" href="{{ url('/register') }}"><i
+                            class="fas fa-user-plus"></i>&nbsp;Register</a></li>
+                <li class="nav-item"><a class="nav-link login-link tw-font-medium" href="{{ url('/login') }}"><i
+                            class="fas fa-sign-in-alt"></i>&nbsp;Login</a></li>
             @endauth
         </ul>
-
     </nav>
 
 

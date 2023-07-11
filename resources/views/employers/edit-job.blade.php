@@ -114,9 +114,9 @@
 
             </div>
 
-            {{-- Hourly Rate --}}
+            {{-- Rate --}}
             <div class="form-input-container">
-                <label for="rate">Hourly Rate</label>
+                <label for="rate">Rate</label>
                 <input type="number" name="rate" placeholder="Example: 5, 10, 100, etc" value="{{ $job->rate }}" />
 
                 @error('rate')

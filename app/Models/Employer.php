@@ -2,16 +2,17 @@
 
 namespace App\Models;
 
+use Laravel\Cashier\Billable;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class Employer extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, Billable;
 
     /**
      * The attributes that are mass assignable.
@@ -19,7 +20,7 @@ class Employer extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'username', 'name', 'email', 'password', 'state',
+        'username', 'name', 'email', 'password', 'state', 'contact_no', 'gender', 'company_name', 'profile_picture'
     ];
 
     /**

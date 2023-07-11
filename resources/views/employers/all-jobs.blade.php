@@ -100,7 +100,6 @@
                                 </th>
                                 <th
                                     class="tw-px-6 tw-py-3 tw-border-b-2 tw-border-gray-300 tw-text-center tw-leading-4 tw-text-blue-500 tw-tracking-wider tw-w-1/10">
-
                                 </th>
                             </tr>
                         </thead>

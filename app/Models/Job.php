@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -79,14 +80,29 @@ class Job extends Model
             //This is similar to SELECT * FROM table_name WHERE category LIKE '%category%'
         }
 
-        //Modified later after have employer database !!!!!
-        //Modified later after have employer database !!!!!
-        //Modified later after have employer database !!!!!
-        // if ($filters['history'] ?? false) {
+        if ($filters['history'] ?? false) {
+            $history = $filters['history'];
 
-        //     $query->where('exp_level', 'like', '%' . request('experience') . '%');
-        //     //This is similar to SELECT * FROM table_name WHERE category LIKE '%category%'
-        // }
+            // Filter based on client history
+            if ($history === 'No hires') {
+                // Exclude employers with no hires
+                $query->whereDoesntHave('trainerApplications');
+            } elseif ($history === '1-9') {
+                // Include employers with 1 to 9 hires
+                $query->whereHas('trainerApplications', function ($subquery) {
+                    $subquery->select('trainer_id')
+                        ->groupBy('trainer_id')
+                        ->havingRaw('COUNT(DISTINCT trainer_id) BETWEEN 1 AND 9');
+                });
+            } elseif ($history === '10') {
+                // Include employers with 10 or more hires
+                $query->whereHas('trainerApplications', function ($subquery) {
+                    $subquery->select('trainer_id')
+                        ->groupBy('trainer_id')
+                        ->havingRaw('COUNT(DISTINCT trainer_id) >= 10');
+                });
+            }
+        }
 
         if ($filters['length'] ?? false) {
 
@@ -94,5 +110,11 @@ class Job extends Model
             $query->whereIn('project_length', $length); // use whereIn to match multiple types
             //This is similar to SELECT * FROM table_name WHERE category LIKE '%category%'
         }
+    }
+
+    // One to many relationship
+    public function trainerApplications()
+    {
+        return $this->hasMany(TrainerApplication::class);
     }
 }

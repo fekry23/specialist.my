@@ -23,7 +23,7 @@ class JobFactory extends Factory
             // FK in Factory: https://stackoverflow.com/questions/65819528/laravel-8-factories-foreign-keys
             // FK in Factory: https://laravel.com/docs/10.x/queries#random-ordering
             'employer_id' => Employer::inRandomOrder()->first()->id,
-            'trainer_id' => Trainer::inRandomOrder()->first()->id,
+            // 'trainer_id' => Trainer::inRandomOrder()->first()->id,
             'title' => $this->faker->sentence(),
             'state' => $this->faker->randomElement([
                 'Johor',

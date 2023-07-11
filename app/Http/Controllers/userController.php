@@ -79,10 +79,6 @@ class userController extends Controller
             $user->save();
         }
 
-        // // Retrieve the currently authenticated user's ID...
-        // $id = Auth::id();
-
-        // dd($id);
         // Attempt to log in the user...
         $guard = $request->input('user-type');
         // dd(route($guard . '.dashboard', ['id' => $id]));

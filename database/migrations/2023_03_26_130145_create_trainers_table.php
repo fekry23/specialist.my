@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('password')->nullable();
             $table->string('name');
             $table->string('state');
-            $table->string('image')->nullable();
+            $table->string('image')->default('freelancer-icon.png');
             $table->string('contact_no')->nullable();
             $table->string('hourly_rate')->nullable();
             $table->string('category')->nullable();

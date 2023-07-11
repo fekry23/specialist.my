@@ -8,7 +8,8 @@
                 <img src="{{ url('/images/find-candidate/' . $application->image) }}"
                     alt="{{ $application->name ?? 'Trainer' }} Profile Image" class="tw-w-8 tw-h-8 tw-rounded-full">
             @else
-                <div class="tw-w-8 tw-h-8 tw-bg-gray-300"></div>
+                <img src="/images/signup-img/freelancer-icon.png"
+                    alt="{{ $application->name ?? 'Trainer' }} Profile Image" class="tw-w-8 tw-h-8 tw-rounded-full">
             @endif
         </div>
         <div class="tw-flex-1 tw-min-w-0">
@@ -20,7 +21,7 @@
             </p>
         </div>
         <div class="tw-inline-flex tw-items-center tw-text-base tw-font-semibold tw-text-gray-900 dark:tw-text-white">
-            RM {{ $application->rates }}
+            RM {{ $application->rates ?? 0 }}
         </div>
     </a>
 </li>

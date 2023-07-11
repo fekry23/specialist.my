@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('styles')
-    <link rel="stylesheet" href="{{ asset('css/employer-dashboard.css') }}">
+    <link rel="stylesheet" href="{{ mix('css/employer-dashboard.css') }}">
 @endsection
 
 @section('content')
@@ -12,8 +12,8 @@
         <div class="right-container">
             <div class="row1">
                 <div class="dashboard-header">
-                    <h1>Employer Dashboard</h1>
-                    <h2>Hello, <span style="color:#87CEFA">{{ $employer_details->name }}</span>!</h2>
+                    <h1 class="tw-font-extrabold">Employer Dashboard</h1>
+                    <h2 class="tw-font-semibold">Hello, <span style="color:#87CEFA">{{ $employer_details->name }}</span>!</h2>
                 </div>
             </div>
             <div class="row1-mini">
@@ -22,7 +22,7 @@
                         <i class="fas fa-briefcase" style="color: #87CEFA;"></i>
                     </div>
                     <div class="small-box-right">
-                        <p class="small-box-title">Active</p>
+                        <p class="small-box-title tw-font-semibold">Active</p>
                         <p class="small-box-value">{{ $totalActiveJobs_counter }}</p>
                     </div>
                 </div>
@@ -31,7 +31,7 @@
                         <i class="fas fa-money-check-alt" style="color: #E6E6FA;"></i>
                     </div>
                     <div class="small-box-right">
-                        <p class="small-box-title">Pending</p>
+                        <p class="small-box-title tw-font-semibold">Pending</p>
                         <p class="small-box-value">{{ $totalPendingPayment_counter }}</p>
                     </div>
                 </div>
@@ -40,7 +40,7 @@
                         <i class="fas fa-file-signature" style="color: #FFC0CB;"></i>
                     </div>
                     <div class="small-box-right">
-                        <p class="small-box-title">Review</p>
+                        <p class="small-box-title tw-font-semibold">Review</p>
                         <p class="small-box-value">{{ $totalNeedReviewJobs_counter }}</p>
                     </div>
                 </div>
@@ -49,7 +49,7 @@
                         <i class="fas fa-check-square" style="color: #98FB98;"></i>
                     </div>
                     <div class="small-box-right">
-                        <p class="small-box-title">Completed</p>
+                        <p class="small-box-title tw-font-semibold">Completed</p>
                         <p class="small-box-value">{{ $totalCompletedJobs_counter }}</p>
                     </div>
                 </div>
@@ -59,7 +59,7 @@
                     {{-- Account Summary --}}
                     <div class="account-summary">
                         <div class="r2-first-header">
-                            <h3>Account Summary</h3>
+                            <h3 class="tw-font-semibold	tw-text-xl">Account Summary</h3>
                         </div>
                         <div class="r2-first-content">
 
@@ -76,23 +76,23 @@
                     <div class="active-jobs">
                         {{-- Active Jobs Title --}}
                         <div class="r2-first-header">
-                            <h3>Your Active Jobs</h3>
+                            <h3 class="tw-font-semibold	tw-text-xl">Your Active Jobs</h3>
                         </div>
                         {{-- Active Jobs Content --}}
                         <div class="r2-first-content">
                             {{-- Active Jobs Header --}}
                             <div class="r2-first-content-header">
                                 <div class="id-content-header">
-                                    <h4>ID</h4>
+                                    <h4 class="tw-font-semibold">ID</h4>
                                 </div>
                                 <div class="title-content-header">
-                                    <h4>Title</h4>
+                                    <h4 class="tw-font-semibold">Title</h4>
                                 </div>
                                 <div class="trainer-content-header">
-                                    <h4>Specialist Name</h4>
+                                    <h4 class="tw-font-semibold">Specialist Name</h4>
                                 </div>
                                 <div class="status-content-header">
-                                    <h4>Status</h4>
+                                    <h4 class="tw-font-semibold">Status</h4>
                                 </div>
                             </div>
                             {{-- Active Jobs Button --}}
@@ -102,16 +102,16 @@
                                     <x-employers.brief-jobs-card :job="$active_job" /> <!-- pass active_job as prop -->
                                 @endforeach
                             @else
-                                <div class="no-listings-div">
-                                    <img src="images/find-job/not-found.png" alt="">
-                                    <h2 class="no-listings-p">No jobs found</h2>
+                                <div class="no-listings-div tw-flex tw-flex-col tw-items-center tw-justify-center">
+                                    <img src="/images/find-job/not-found.png" alt="" class="tw-w-24 tw-h-24 tw-mt-20">
+                                    <h2 class="no-listings-p tw-font-bold">No jobs found</h2>
                                 </div>
                             @endunless
                         </div>
                         {{-- Active Jobs Footer --}}
                         <div class="r2-first-footer">
-                            <p>Total Active Jobs: {{ $totalActiveJobs_counter }}</p>
-                            <a href="">View All Active Jobs</a>
+                            <p class="tw-font-semibold">Total Active Jobs: {{ $totalActiveJobs_counter }}</p>
+                            <a href="{{ route('employer.active_jobs') }}">View All Active Jobs</a>
                         </div>
                     </div>
                     {{-- EOF Active Jobs --}}
@@ -119,22 +119,22 @@
                     {{-- Pending Payment --}}
                     <div class="pending-payment">
                         <div class="r2-first-header">
-                            <h3>Your Pending Payment</h3>
+                            <h3 class="tw-font-semibold	tw-text-xl">Your Pending Payment</h3>
                         </div>
                         <div class="r2-first-content">
                             {{-- Pending Payment Header --}}
                             <div class="r2-first-content-header">
                                 <div class="id-content-header">
-                                    <h4>ID</h4>
+                                    <h4 class="tw-font-semibold">ID</h4>
                                 </div>
                                 <div class="title-content-header">
-                                    <h4>Title</h4>
+                                    <h4 class="tw-font-semibold">Title</h4>
                                 </div>
                                 <div class="trainer-content-header">
-                                    <h4>Specialist Name</h4>
+                                    <h4 class="tw-font-semibold">Specialist Name</h4>
                                 </div>
                                 <div class="status-content-header">
-                                    <h4>Status</h4>
+                                    <h4 class="tw-font-semibold">Status</h4>
                                 </div>
                             </div>
                             {{-- Pending Payment Button --}}
@@ -144,30 +144,18 @@
                                     <x-employers.brief-jobs-card :job="$pendingPayment_job" /> <!-- pass active_job as prop -->
                                 @endforeach
                             @else
-                                <div class="no-listings-div">
-                                    <img src="images/find-job/not-found.png" alt="">
-                                    <h2 class="no-listings-p">No jobs found</h2>
+                                <div class="no-listings-div tw-flex tw-flex-col tw-items-center tw-justify-center">
+                                    <img src="/images/find-job/not-found.png" alt="" class="tw-w-24 tw-h-24 tw-mt-20">
+                                    <h2 class="no-listings-p tw-font-bold">No jobs found</h2>
                                 </div>
                             @endunless
                         </div>
                         <div class="r2-first-footer">
-                            <p>Total Pending Payment: {{ $totalPendingPayment_counter }}</p>
-                            <a href="">View All Pending Payment</a>
+                            <p class="tw-font-semibold">Total Pending Payment: {{ $totalPendingPayment_counter }}</p>
+                            <a href="{{ route('employer.completed_jobs') }}">View All Pending Payment</a>
                         </div>
                     </div>
                     {{-- EOF Pending Payment --}}
-                </div>
-                <div class="r2-column r2-second-column">
-                    {{-- Latest Activity --}}
-                    <div class="latest-activity">
-                        <div class="r2-second-header">
-                            <h3>Latest Activity</h3>
-                        </div>
-                        <div class="r2-second-content">
-
-                        </div>
-                    </div>
-                    {{-- EOF Latest Activity --}}
                 </div>
             </div>
 

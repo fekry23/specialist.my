@@ -9,7 +9,7 @@
 
         {{-- Header Div --}}
         <div class="tw-container tw-mx-auto tw-pt-8 tw-px-4 tw-bg-white">
-            <x-employers.active-jobs-breadcrumb :current_page="'Job Progress'" />
+            <x-employers.jobs-breadcrumb :previous_page="'Active Job Listings'" :current_page="'Job Progress'" />
             <h1
                 class="tw-mb-4 tw-text-3xl tw-font-extrabold tw-text-gray-900 tw-dark:text-white tw-md:text-5xl tw-lg:text-6xl">
                 <span
@@ -40,7 +40,8 @@
                     class="tw-list-none tw-relative tw-border-l tw-border-y-0 tw-border-r-0 tw-border-solid tw-border-gray-200 dark:tw-border-gray-700">
                     @foreach ($job_status as $status)
                         {{-- To access compononents, use " <x-file-name/> --}}
-                        <x-employers.progress-information :status="$status" /> <!-- pass active_job as prop -->
+                        <x-employers.progress-information :status="$status" :completed_job_details="$completed_job_details" :review_details="$review_details" />
+                        <!-- pass active_job as prop -->
                     @endforeach
                 </ol>
             </div>
@@ -118,13 +119,9 @@
 
                         {{-- If there's a trainer/specialist currently in charge --}}
                         @isset($trainer)
-                            <button type="button"
-                                class="tw-px-5 tw-py-2 tw-cursor-pointer tw-bg-specialist tw-border-specialist tw-border tw-text-white {{ $trainer && $trainer->id ? 'tw-rounded-l-lg' : '' }} tw-transition tw-duration-300 hover:tw-bg-white hover:tw-text-specialist focus:tw-outline-none">
-                                Message Specialist
-                            </button>
-
                             <button type="button" id="remove-btn"
-                                class="tw-px-5 tw-py-2 tw-bg-specialist tw-border-specialist tw-border tw-text-white tw-rounded-r-lg tw-transition tw-duration-300 tw-cursor-pointer hover:tw-bg-white hover:tw-text-specialist focus:tw-outline-none">
+                                class="tw-px-5 tw-py-2 tw-bg-specialist tw-border-specialist tw-border tw-text-white tw-rounded-lg {{ $completed_job_details ? 'tw-opacity-50 tw-cursor-not-allowed' : 'tw-transition tw-duration-300 tw-opacity-100 tw-cursor-pointer hover:tw-bg-white hover:tw-text-specialist focus:tw-outline-none' }} "
+                                {{ $completed_job_details ? 'disabled' : '' }}>
                                 Remove Specialist
                             </button>
                         @endisset
@@ -135,12 +132,16 @@
                 <div class="tw-flex tw-items-center">
 
                     <div class="tw-rounded-full tw-overflow-hidden tw-mr-4">
-                        @if (isset($trainer->image) && file_exists(public_path('/images/find-candidate/' . $trainer->image)))
-                            <img src="{{ url('/images/find-candidate/' . $trainer->image) }}"
-                                alt="{{ $trainer->name ?? 'Trainer' }} Profile Image" class="tw-rounded tw-w-36 tw-h-36">
-                        @else
-                            <div class="tw-w-36 tw-h-36 tw-bg-gray-300"></div>
-                        @endif
+                        @isset($trainer)
+                            @if ($trainer->image === 'freelancer-icon.png')
+                                <img class="tw-rounded tw-w-36 tw-h-36" src="/images/signup-img/freelancer-icon.png"
+                                    alt="">
+                            @else
+                                <img class="tw-rounded tw-w-36 tw-h-36" src="{{ asset('storage/' . $trainer->image) }}"
+                                    alt="">
+                            @endif
+                        @endisset
+
                     </div>
                     <div>
                         <h2 class="tw-text-lg tw-font-semibold tw-text-gray-900">{{ $trainer->name ?? 'N/A' }}</h2>

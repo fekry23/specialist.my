@@ -23,48 +23,78 @@
             </div>
             <!-- Search and Data table container -->
             <div class="tw--my-2 tw-py-2 tw-overflow-x-auto sm:tw--mx-6 sm:tw-px-6 lg:tw--mx-8 lg:tw-px-8">
-                {{-- Main container for combination of search bar and data table --}}
+                {{-- Main container to hold the DIV for filters and create job button --}}
                 <div
-                    class="tw-align-middle tw-rounded-tl-lg tw-rounded-tr-lg tw-inline-block tw-w-full tw-py-4 tw-overflow-hidden tw-bg-white tw-shadow-lg tw-px-12">
-                    <!-- Main container for the search bar and button -->
-                    <div class="tw-flex tw-justify-between tw-items-center">
-                        <!-- Input container with search icon -->
-                        <div class="tw-inline-flex tw-rounded tw-w-7/12 tw-h-12 tw-bg-transparent">
-                            {{-- Search Request --}}
-                            <form action="{{ route('employer.search_active_jobs') }}" method="GET"
-                                class="tw-inline-flex tw-border tw-rounded tw-w-7/12 tw-h-12 tw-bg-transparent">
-                                <div class="tw-flex tw-flex-wrap tw-items-stretch tw-w-full tw-h-full tw-mb-6 tw-relative">
-                                    <div class="tw-flex">
-                                        <!-- Search icon container (wrapped in anchor tag) -->
-                                        <a href="javascript:void(0);" onclick="this.closest('form').submit();"
-                                            class="tw-flex tw-items-center tw-leading-normal tw-bg-transparent tw-rounded tw-rounded-r-none tw-border tw-border-r-0 tw-border-none lg:tw-px-3 tw-py-2 tw-whitespace-no-wrap tw-text-grey-dark tw-text-sm">
-                                            <svg width="18" height="18" class="tw-w-4 lg:tw-w-auto"
-                                                viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M8.11086 15.2217C12.0381 15.2217 15.2217 12.0381 15.2217 8.11086C15.2217 4.18364 12.0381 1 8.11086 1C4.18364 1 1 4.18364 1 8.11086C1 12.0381 4.18364 15.2217 8.11086 15.2217Z"
-                                                    stroke="#455A64" stroke-linecap="round" stroke-linejoin="round" />
-                                                <path d="M16.9993 16.9993L13.1328 13.1328" stroke="#455A64"
-                                                    stroke-linecap="round" stroke-linejoin="round" />
-                                            </svg>
-                                        </a>
+                    class="tw-flex tw-justify-between tw-items-center tw-align-middle tw-rounded-tl-lg tw-rounded-tr-lg tw-inline-block tw-w-full tw-py-4 tw-overflow-hidden tw-bg-white tw-shadow-lg tw-px-12">
+
+
+                    {{-- Filter divs --}}
+                    <div class="tw-flex">
+                        {{-- search bar --}}
+                        <form action="{{ route('employer.search_active_jobs') }}" method="GET" class="tw-flex tw-w-full">
+                            <label for="keywords"
+                                class="tw-mb-2 tw-text-sm tw-font-medium tw-text-gray-900 tw-sr-only">Search</label>
+                            <div class="tw-flex">
+                                <div class="tw-relative">
+                                    <div
+                                        class="tw-absolute tw-inset-y-0 tw-left-0 tw-flex tw-items-center tw-pl-3 tw-pointer-events-none">
+                                        <svg aria-hidden="true" class="tw-w-5 tw-h-5 tw-text-gray-500 tw-dark:text-gray-400"
+                                            fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path tw-stroke-linecap="round" tw-stroke-linejoin="round" tw-stroke-width="2"
+                                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                        </svg>
                                     </div>
-                                    <!-- Search input field -->
                                     <input type="text" name="keywords"
-                                        class="tw-flex-shrink tw-flex-grow tw-flex-auto tw-leading-normal tw-tracking-wide tw-w-px tw-flex-1 tw-border tw-border-none tw-border-l-0 tw-rounded tw-rounded-l-none tw-px-3 tw-relative focus:tw-outline-none tw-text-xxs lg:tw-text-xs lg:tw-text-base tw-text-gray-500 tw-font-thin"
-                                        placeholder="Search by title, description, category, skills">
+                                        class="tw-block tw-w-96 tw-p-4 tw-pl-10 tw-text-sm tw-text-gray-900 tw-border tw-border-gray-300 tw-rounded-lg tw-bg-gray-50 focus:tw-ring-blue-500 focus:tw-border-blue-500"
+                                        placeholder="Search by title, category, and other keywords"
+                                        value="{{ request()->get('keywords') }}">
                                 </div>
-                            </form>
 
-                        </div>
-                        <div>
-                            <a href="/employer/jobs/create">
-                                <button
-                                    class="tw-px-5 tw-py-2 tw-border tw-border-blue-500 tw-rounded tw-cursor-pointer tw-transition tw-duration-300 tw-text-white tw-bg-gradient-to-r tw-from-blue-500 tw-to-blue-700 hover:tw-from-blue-600 hover:tw-to-blue-800 focus:tw-outline-none">Create
-                                    Job</button>
-                            </a>
+                                <div class="tw-ml-4">
+                                    <select name="status"
+                                        class="tw-w-48 tw-bg-gray-50 tw-border tw-border-gray-300 tw-text-gray-900 tw-text-sm tw-rounded-lg focus:tw-ring-blue-500 focus:tw-border-blue-500 tw-block tw-w-full tw-p-4">
+                                        <option value="">Choose a status</option>
+                                        <option value="On going"
+                                            {{ request()->get('status') == 'On going' ? 'selected' : '' }}>On
+                                            going</option>
+                                        <option value="Pending payment"
+                                            {{ request()->get('status') == 'Pending payment' ? 'selected' : '' }}>Pending
+                                            payment
+                                        </option>
+                                    </select>
+                                </div>
 
-                        </div>
+
+                                <div class="tw-flex tw-ml-4  tw-items-center">
+                                    <button type="submit"
+                                        class="tw-text-white tw-bg-blue-700 hover:tw-bg-blue-800 focus:tw-ring-4 focus:tw-outline-none focus:tw-ring-blue-300 tw-font-medium tw-rounded-lg tw-text-sm tw-px-4 tw-py-2">Apply</button>
+
+                                    <a href="{{ url('/employer/jobs/active-jobs') }}" id="reset-link">
+                                        <button
+                                            class="tw-text-gray-800 tw-bg-white tw-border tw-border-gray-800 hover:tw-bg-gray-800 hover:tw-text-white focus:tw-ring-4 focus:tw-outline-none focus:tw-ring-red-100 tw-font-medium tw-rounded-lg tw-text-sm tw-px-4 tw-py-2 tw-ml-2">
+                                            Reset</button>
+                                    </a>
+
+
+                                </div>
+                            </div>
+                        </form>
+
+
                     </div>
+
+
+                    {{-- Create job button div --}}
+                    <div>
+                        <a href="/employer/jobs/create">
+                            <button
+                                class="tw-px-5 tw-py-2 tw-border tw-border-blue-500 tw-rounded tw-cursor-pointer tw-transition tw-duration-300 tw-text-white tw-bg-gradient-to-r tw-from-blue-500 tw-to-blue-700 hover:tw-from-blue-600 hover:tw-to-blue-800 focus:tw-outline-none">Create
+                                Job</button>
+                        </a>
+
+                    </div>
+
                 </div>
 
 
@@ -121,7 +151,7 @@
                                     @endphp
                                     {{-- To access components, use "<x-file-name/>" --}}
                                     <tr class="tw-border-b-4 {{ $rowClass }}">
-                                        <x-employers.active-jobs-table-row :job="$active_job" />
+                                        <x-employers.jobs-table-row :job="$active_job" />
                                     </tr>
                                 @endforeach
                             @endif
@@ -163,6 +193,14 @@
 
         jobsLink.addEventListener("click", function() {
             toggleDropdown();
+        });
+    </script>
+
+    {{-- Reset Filters --}}
+    <script>
+        document.getElementById('reset-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = window.location.pathname;
         });
     </script>
 @endsection
