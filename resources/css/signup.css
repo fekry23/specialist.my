@@ -216,12 +216,38 @@
     box-sizing: border-box;
 }
 
-.user-signup-form .pass-instruction {
-    display: none;
-    font-size: 90%;
-    text-align: left;
-    margin-top: 1%;
-    margin-left: 10%
+.progress {
+    height: 3px !important;
+    width: 90%;
+}
+
+.progress-bar {
+    height: 100%;
+    font-size: 12px;
+    line-height: 20px;
+    color: #fff;
+    text-align: center;
+    background-color: #337ab7;
+}
+
+.progress-bar-danger {
+    background-color: #e90f10;
+}
+
+.progress-bar-warning {
+    background-color: #ffad00;
+}
+
+.progress-bar-success {
+    background-color: #02b502;
+}
+
+.fa-circle {
+    font-size: 6px;
+}
+
+.fa-check {
+    color: #02b502;
 }
 
 .user-signup-form #submit-user {

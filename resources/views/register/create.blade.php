@@ -5,12 +5,13 @@
 @endsection
 
 @section('content')
-    <div class="content">
+    <div class="tw-container tw-py-16 tw-mx-auto">
         <!-- start of sign up form -->
         <div class="user-signup-form" id="user-signup-form">
             <button type="button" id="back-button">
                 <img src="/images/signup-img/left-arrow-icon.png" alt=""> </button>
-            <h1 id="signup-header" style="width: 100%;text-align:center;padding:3% 3%;"></h1>
+            <h1 id="signup-header" class="tw-font-bold tw-text-3xl" style="width: 100%;text-align:center;padding:3% 3%;">
+            </h1>
             <form method="POST" action="/users" id="user-signup-form">
                 @csrf
 
@@ -64,6 +65,38 @@
                     @enderror
                 </div>
 
+
+
+                <div id="popover-password" class="tw-ml-16 tw-pl-2">
+                    <p><span id="result"></span></p>
+                    <div class="progress">
+                        <div id="password-strength" class="progress-bar" role="progressbar" aria-valuenow="40"
+                            aria-valuemin="0" aria-valuemax="100" style="width:0%">
+                        </div>
+                    </div>
+                    <ul class="list-unstyled tw-text-left tw-w-96 ">
+                        <li class="">
+                            <span class="low-upper-case">
+                                <i class="fas fa-circle" aria-hidden="true"></i>
+                                &nbsp;Lowercase &amp; Uppercase
+                            </span>
+                        </li>
+                        <li class="">
+                            <span class="one-number">
+                                <i class="fas fa-circle" aria-hidden="true"></i>
+                                &nbsp;Number (0-9)
+                            </span>
+                        </li>
+                        <li class="">
+                            <span class="eight-character">
+                                <i class="fas fa-circle" aria-hidden="true"></i>
+                                &nbsp;Atleast 8 Character
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+
+
                 {{-- Location --}}
                 <div class="form-input-container">
                     <select id="location" name="location">
@@ -90,7 +123,7 @@
                     @error('location')
                         <p class="error-message">{{ $message }}</p>
                     @enderror
-                </div><br><br>
+                </div><br>
 
                 <div class="form-submit-button-container">
                     <button id="submit-user"> Create my account </button>
@@ -107,4 +140,69 @@
 
 @section('scripts')
     <script src="{{ asset('js/signup/signup-create.js') }}"></script>
+
+    <script>
+        let state = false;
+        let password = document.getElementById("new-password");
+        let passwordStrength = document.getElementById("password-strength");
+        let lowUpperCase = document.querySelector(".low-upper-case i");
+        let number = document.querySelector(".one-number i");
+        let specialChar = document.querySelector(".one-special-char i");
+        let eightChar = document.querySelector(".eight-character i");
+
+        password.addEventListener("keyup", function() {
+            let pass = document.getElementById("new-password").value;
+            checkStrength(pass);
+        });
+
+        function checkStrength(password) {
+            let strength = 0;
+
+            //If password contains both lower and uppercase characters
+            if (password.match(/([a-z].*[A-Z])|([A-Z].*[a-z])/)) {
+                strength += 1;
+                lowUpperCase.classList.remove('fa-circle');
+                lowUpperCase.classList.add('fa-check');
+            } else {
+                lowUpperCase.classList.add('fa-circle');
+                lowUpperCase.classList.remove('fa-check');
+            }
+            //If it has numbers and characters
+            if (password.match(/([0-9])/)) {
+                strength += 1;
+                number.classList.remove('fa-circle');
+                number.classList.add('fa-check');
+            } else {
+                number.classList.add('fa-circle');
+                number.classList.remove('fa-check');
+            }
+            //If password is greater than 7
+            if (password.length > 7) {
+                strength += 1;
+                eightChar.classList.remove('fa-circle');
+                eightChar.classList.add('fa-check');
+            } else {
+                eightChar.classList.add('fa-circle');
+                eightChar.classList.remove('fa-check');
+            }
+
+            // If value is less than 2
+            if (strength < 1) {
+                passwordStrength.classList.remove('progress-bar-warning');
+                passwordStrength.classList.remove('progress-bar-success');
+                passwordStrength.classList.add('progress-bar-danger');
+                passwordStrength.style = 'width: 10%';
+            } else if (strength == 2) {
+                passwordStrength.classList.remove('progress-bar-success');
+                passwordStrength.classList.remove('progress-bar-danger');
+                passwordStrength.classList.add('progress-bar-warning');
+                passwordStrength.style = 'width: 60%';
+            } else if (strength == 3) {
+                passwordStrength.classList.remove('progress-bar-warning');
+                passwordStrength.classList.remove('progress-bar-danger');
+                passwordStrength.classList.add('progress-bar-success');
+                passwordStrength.style = 'width: 100%';
+            }
+        }
+    </script>
 @endsection
