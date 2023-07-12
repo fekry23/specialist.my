@@ -171,24 +171,6 @@
         });
     </script>
 
-    {{-- Delete Confirmation Popup --}}
-    {{-- <script>
-        var deleteBtn = document.getElementById("delete-btn");
-        var deletePopup = document.getElementById("delete-popup");
-        var deleteCancel = document.getElementById("cancel-btn");
-
-        deleteBtn.addEventListener("click", function() {
-            console.log("ok");
-            deletePopup.classList.remove("tw-hidden");
-            deletePopup.classList.add("tw-flex");
-        });
-
-        deleteCancel.addEventListener("click", function() {
-            deletePopup.classList.remove("tw-flex");
-            deletePopup.classList.add("tw-hidden");
-        });
-    </script> --}}
-
     <script>
         // Wait for the document to be ready
         document.addEventListener('DOMContentLoaded', function() {
