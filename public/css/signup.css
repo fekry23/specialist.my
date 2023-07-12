@@ -8,6 +8,7 @@
 }
 
 /* Start of choose-method-container */
+
 .choose-method-container {
     background-color: white;
     width: 50%;
@@ -129,7 +130,6 @@
     }
 }
 
-
 @media (max-width:425px) {
     .choose-method-container {
         width: 100%;
@@ -151,6 +151,7 @@
 /* end of choose-method-container */
 
 /* Start of choose-method-container */
+
 .client-signup-form {
     display: none;
     background-color: white;
