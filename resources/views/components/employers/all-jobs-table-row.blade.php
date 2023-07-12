@@ -31,7 +31,8 @@
     </a>
     <a>
         <button id="delete-btn"
-            class="tw-w-20 tw-ml-2 tw-bg-red-600 hover:tw-bg-red-300 tw-text-white tw-font-semibold tw-py-1 tw-px-2 tw-border tw-border-gray-400 tw-rounded tw-shadow tw-text-sm">
+            class="tw-w-20 tw-ml-2 tw-bg-red-600 hover:tw-bg-red-300 tw-text-white tw-font-semibold tw-py-1 tw-px-2 tw-border tw-border-gray-400 tw-rounded tw-shadow tw-text-sm"
+            data-value="{{ $job->id }}">
             Delete
         </button>
     </a>
