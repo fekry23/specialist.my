@@ -356,7 +356,7 @@
                 confirmParams: {
                     receipt_email: emailAddress,
                     // Return URL where the customer should be redirected after the PaymentIntent is confirmed.
-                    return_url: 'http://67.205.158.77/employer/jobs/' + {{ $job->id }} + '/' +
+                    return_url: 'http://127.0.0.1:8000/employer/jobs/' + {{ $job->id }} + '/' +
                         {{ $job->rate }} + '/payment/success',
                 },
                 // redirect: "if_required",
