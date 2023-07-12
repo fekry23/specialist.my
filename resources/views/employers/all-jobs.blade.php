@@ -171,20 +171,42 @@
         });
     </script>
 
-    {{-- Delete Confirmation Popup --}}
     <script>
-        var deleteBtn = document.getElementById("delete-btn");
-        var deletePopup = document.getElementById("delete-popup");
-        var deleteCancel = document.getElementById("cancel-btn");
+        // Wait for the document to be ready
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get all delete buttons
+            var deleteButtons = document.querySelectorAll('#delete-btn');
 
-        deleteBtn.addEventListener("click", function() {
-            deletePopup.classList.remove("tw-hidden");
-            deletePopup.classList.add("tw-flex");
-        });
+            // Add event listener to each delete button
+            deleteButtons.forEach(function(button) {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault(); // Prevent the default form submission
 
-        deleteCancel.addEventListener("click", function() {
-            deletePopup.classList.remove("tw-flex");
-            deletePopup.classList.add("tw-hidden");
+
+
+                    // Show the delete confirmation popup
+                    var popup = document.getElementById('delete-popup');
+                    popup.classList.remove('tw-hidden');
+                    popup.classList.add('tw-flex');
+
+                    // Get the job ID from the dataset-value of the div
+                    var jobId = button.dataset.value;
+
+                    // Add the job ID to the form action URL
+                    var form = popup.querySelector('#delete-popup form');
+                    form.action = '/employer/jobs/' + jobId + '/delete';
+                });
+            });
+
+            // Add event listener to the cancel button
+            var cancelButton = document.getElementById('cancel-btn');
+            cancelButton.addEventListener('click', function() {
+                // Hide the delete confirmation popup
+                var popup = document.getElementById('delete-popup');
+                popup.classList.add('tw-hidden');
+                popup.classList.remove('tw-flex');
+
+            });
         });
     </script>
 @endsection
