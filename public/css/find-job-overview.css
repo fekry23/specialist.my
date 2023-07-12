@@ -10,6 +10,7 @@
     height: auto;
     padding: 5% 5%;
     background-color: white;
+    width: -webkit-fill-available;
 }
 @media (max-width:768px) {.job-container {width: 100%;}}
 /* End of Candidate Profile Pop-up window */

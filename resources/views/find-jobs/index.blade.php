@@ -64,9 +64,9 @@
                 <div class="clientHistoryContent">
                     <input type="checkbox" id="history0" name="history" value="No hires">
                     <label for="history0">No hires</label><br>
-                    <input type="checkbox" id="history1" name="history" value="1 to 9 hires">
+                    <input type="checkbox" id="history1" name="history" value="1-9">
                     <label for="history1">1 to 9 hires</label><br>
-                    <input type="checkbox" id="history2" name="history" value="10+ hires">
+                    <input type="checkbox" id="history2" name="history" value="10">
                     <label for="history2">10+ hires</label><br>
                 </div>
             </div>
@@ -122,8 +122,15 @@
                         <h2 class="no-listings-p">No jobs found</h2>
                     </div>
                 @endunless
+                {{-- Paginate --}}
+                <div class="c2-row2-mini">
+                    <div class="tw-mt-6 tw-p-4">
+                        {{ $jobs->links('pagination::tailwind') }}
+                    </div>
+                </div>
             </div>
             <!-- END OF VIEWING CANDIDATE OVERVIEW PROFILE -->
+
 
         </div>
     </div>

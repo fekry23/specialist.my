@@ -13,15 +13,25 @@ return new class extends Migration
     {
         Schema::create('jobs', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('employer_id')
+                ->constrained('employers')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            $table->foreignId('trainer_id')
+                ->nullable()
+                ->constrained('trainers')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             $table->string('title');
             $table->string('state');
             $table->longText('description');
             $table->string('category');
             $table->string('type');
-            $table->string('rate');            
+            $table->string('rate');
             $table->string('exp_level');
             $table->string('project_length');
             $table->string('skills');
+            $table->string('status')->default('On going');
             $table->timestamps();
         });
     }

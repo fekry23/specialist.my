@@ -1,5 +1,6 @@
 const mix = require('laravel-mix');
 
+require('mix-tailwindcss');
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -16,7 +17,13 @@ const mix = require('laravel-mix');
 //         //
 //     ]);
 
-mix.js('resources/js/find-candidate.js', 'public/js')
+mix.js('resources/js/app.js', 'public/js')
+    .js("./node_modules/flowbite/dist/flowbite.js", "public/js")
+    .js("./node_modules/flowbite/dist/datepicker.js", "public/js")
+    .postCss("./node_modules/flowbite/dist/flowbite.css", "public/css")
+    .postCss('resources/css/app.css', 'public/css')
+    .tailwind()
+    .js('resources/js/find-candidate.js', 'public/js')
     .js('resources/js/find-job.js', 'public/js')
     .js('resources/js/footer.js', 'public/js')
     .js('resources/js/index.js', 'public/js')
@@ -27,13 +34,12 @@ mix.js('resources/js/find-candidate.js', 'public/js')
     .css('resources/css/find-candidate-overview.css', 'css')
     .css('resources/css/find-job.css', 'css')
     .css('resources/css/find-job-overview.css', 'css')
-    // .css('resources/css/font-awesome.min.css', 'css')
+    .css('resources/css/find-job-create.css', 'css')
     .css('resources/css/footer.css', 'css')
     .css('resources/css/index.css', 'css')
     .css('resources/css/login.css', 'css')
     .css('resources/css/signup.css', 'css')
-    .css('resources/css/tagify.css', 'css');
-
-
-
-// mix.js('resources/js/app.js', 'js').sass('resources/sass/app.scss', 'css');
+    .css('resources/css/tagify.css', 'css')
+    .css('resources/css/employers/employer-dashboard.css', 'css')
+    .css('resources/css/employers/employer-active-jobs.css', 'css')
+    .css('resources/css/employers/employer-show-jobs.css', 'css');

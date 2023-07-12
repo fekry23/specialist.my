@@ -2,24 +2,30 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Job extends Model
 {
     use HasFactory;
+
+    //https://laravel.com/docs/10.x/eloquent#mass-assignment
+    // https://stackoverflow.com/questions/22279435/what-does-mass-assignment-mean-in-laravel
+    protected $fillable = [
+        'title', 'state', 'description', 'category', 'type', 'rate', 'exp_level', 'project_length', 'skills', 'employer_id'
+    ];
+
+    protected $guarded = [
+        'id', 'employer_id', 'created_at', 'updated_at'
+    ];
 
     //https://laravel.com/docs/5.0/eloquent#query-scopes
     // array $filters dapat dari file nama app/Controller/ListingController.php
     public function scopeFilter($query, array $filters)
     {
         //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing
-        //Example:
-        // The result of a ?? b is:
-        // if a is defined, then a,
-        // if a isn’t defined, then b.
-        // Kalau kiri defined, ambik kiri
-        // Kalau kiri undefined, ambik kanan
         if ($filters['keywords'] ?? false) {
             //             where: This is a method on the query builder that adds a WHERE clause to the query.
             // 'tags': This is the name of the column in the table that we want to filter on.
@@ -29,8 +35,8 @@ class Job extends Model
             // The % symbols are wildcard characters that match any number of characters before or after the tag value.
             $query->where('title', 'like', '%' . request('keywords') . '%')
                 ->orWhere('description', 'like', '%' . request('keywords') . '%')
-                ->orWhere('skills', 'like', '%' . request('keywords') . '%');
-
+                ->orWhere('skills', 'like', '%' . request('keywords') . '%')
+                ->orWhere('category', 'like', '%' . request('keywords') . '%');
             //This is similar to SELECT * FROM table_name WHERE tags LIKE '%tag_value%'
         }
 
@@ -74,14 +80,29 @@ class Job extends Model
             //This is similar to SELECT * FROM table_name WHERE category LIKE '%category%'
         }
 
-        //Modified later after have employer database !!!!!
-        //Modified later after have employer database !!!!!
-        //Modified later after have employer database !!!!!
-        // if ($filters['history'] ?? false) {
+        if ($filters['history'] ?? false) {
+            $history = $filters['history'];
 
-        //     $query->where('exp_level', 'like', '%' . request('experience') . '%');
-        //     //This is similar to SELECT * FROM table_name WHERE category LIKE '%category%'
-        // }
+            // Filter based on client history
+            if ($history === 'No hires') {
+                // Exclude employers with no hires
+                $query->whereDoesntHave('trainerApplications');
+            } elseif ($history === '1-9') {
+                // Include employers with 1 to 9 hires
+                $query->whereHas('trainerApplications', function ($subquery) {
+                    $subquery->select('trainer_id')
+                        ->groupBy('trainer_id')
+                        ->havingRaw('COUNT(DISTINCT trainer_id) BETWEEN 1 AND 9');
+                });
+            } elseif ($history === '10') {
+                // Include employers with 10 or more hires
+                $query->whereHas('trainerApplications', function ($subquery) {
+                    $subquery->select('trainer_id')
+                        ->groupBy('trainer_id')
+                        ->havingRaw('COUNT(DISTINCT trainer_id) >= 10');
+                });
+            }
+        }
 
         if ($filters['length'] ?? false) {
 
@@ -89,5 +110,11 @@ class Job extends Model
             $query->whereIn('project_length', $length); // use whereIn to match multiple types
             //This is similar to SELECT * FROM table_name WHERE category LIKE '%category%'
         }
+    }
+
+    // One to many relationship
+    public function trainerApplications()
+    {
+        return $this->hasMany(TrainerApplication::class);
     }
 }

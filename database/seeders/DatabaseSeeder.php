@@ -3,8 +3,6 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Models\Job;
-use App\Models\Trainer;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -17,8 +15,14 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
         // Job::factory(6)->create();
-        $this->call(JobSeeder::class);
-        $this->call(TrainerSeeder::class);
+        // $this->call(JobSeeder::class);
+        // $this->call(TrainerSeeder::class);
+        // https://laravel.com/docs/10.x/seeding#calling-additional-seeders
+        $this->call([
+            TrainerSeeder::class,
+            EmployerSeeder::class,
+            JobSeeder::class,
+        ]);
 
         // //https://stackoverflow.com/questions/64220203/how-to-get-unique-values-from-faker
         // $max = 11;

@@ -8,39 +8,60 @@
     <link rel="stylesheet"
         href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
+    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     @yield('styles')
 </head>
 
 <body>
     <!-- Navigation Bar -->
-    <nav>
-        <div class="menu-icon">
-            <span class="fas fa-bars"></span>
-            <!-- The link with class="icon" is used to open and close the topnav on small screens.-->
+    <nav class="navbar">
+        <div class="navbar-logo">
+            <a href="/">
+                <h3 class="tw-font-black">Specialist.my</h3>
+            </a>
         </div>
-        <div class="logo">
-            <a href="/">Specialist.my</a>
+        <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link tw-font-medium" href="/">Home</a></li>
+            <li class="nav-item"><a class="nav-link tw-font-medium" href="{{ url('/find-candidate') }}">Find
+                    Candidate</a></li>
+            <li class="nav-item"><a class="nav-link tw-font-medium" href="{{ url('/find-job') }}">Find Jobs</a></li>
 
-        </div>
-
-
-
-        <div class="nav-items">
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="{{ url('/find-candidate') }}">Find Candidate</a></li>
-                <li><a href="{{ url('find-job') }}">Find Jobs</a></li>
-                <li><a href="" class="login-link"><i class="fas fa-sign-in-alt" style="color: #eaf0fb;"></i>
-                        &nbsp Login</a></li>
-            </ul>
-        </div>
-
-
-
-        <div class="cancel-icon">
-            <span><i class="far fa-window-close"></i></span>
-        </div>
+            @auth('employer')
+                <li class="nav-item"><a class="nav-link tw-font-medium"
+                        href="{{ url('/employer/dashboard', Auth::guard('employer')->id()) }}">Employer Dashboard</a></li>
+                <li class="nav-item">
+                    <form class="tw-inline" method="POST" action="/logout">
+                        @csrf
+                        <button type="submit"
+                            class="tw-text-black tw-bg-white tw-border-transparent hover:tw-text-light-blue-200 tw-text-lg tw-cursor-pointer">
+                            <i class="fas fa-sign-out-alt tw-text-lg"></i>
+                            <span class="tw-font-medium">Logout</span>
+                        </button>
+                    </form>
+                </li>
+                @elseauth('trainer')
+                <li class="nav-item"><a class="nav-link tw-font-medium"
+                        href="{{ url('/trainer/dashboard', Auth::guard('trainer')->id()) }}">Specialist Dashboard</a></li>
+                <li class="nav-item">
+                    <form class="tw-inline" method="POST" action="/logout">
+                        @csrf
+                        <button type="submit"
+                            class="tw-text-black tw-bg-white tw-border-transparent hover:tw-text-light-blue-200 tw-text-lg tw-cursor-pointer">
+                            <i class="fas fa-sign-out-alt tw-text-lg"></i>
+                            <span class="tw-font-medium">Logout</span>
+                        </button>
+                    </form>
+                </li>
+            @else
+                <li class="nav-item"><a class="nav-link register-link tw-font-medium" href="{{ url('/register') }}"><i
+                            class="fas fa-user-plus"></i>&nbsp;Register</a></li>
+                <li class="nav-item"><a class="nav-link login-link tw-font-medium" href="{{ url('/login') }}"><i
+                            class="fas fa-sign-in-alt"></i>&nbsp;Login</a></li>
+            @endauth
+        </ul>
     </nav>
+
+
     <!-- end of navigation bar -->
 
     <main>
@@ -56,11 +77,16 @@
     </footer>
     <!-- End of Footer -->
 
+    <x-flash-message />
+
 </body>
+
 
 </html>
 
 @yield('scripts')
+<script src="//unpkg.com/alpinejs" defer></script>
 <script src="{{ asset('https://code.jquery.com/jquery-3.5.1.js') }}"></script>
+<script src="{{ mix('js/app.js') }}"></script>
 <script src="{{ asset('js/navbar.js') }}"></script>
 <script src="{{ asset('js/footer.js') }}"></script>

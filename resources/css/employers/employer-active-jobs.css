@@ -1,0 +1,127 @@
+/* Left Container */
+.left-container {
+    background-color: #ffffff;
+    padding: 1.5rem;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.left-nav-items ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.left-nav-items .active {
+    background-color: #8dc7ff;
+    border-radius: 0.3rem;
+    padding: 0.8rem 0rem;
+    transition: color 0.3s ease-in-out, border 0.5s ease-out;
+    /* Increase border transition duration and adjust timing function */
+    /* Added transition property for border */
+}
+
+.left-nav-items .active:hover {
+    border: 2px solid black;
+}
+
+
+
+.left-nav-items .active a {
+    padding-left: 4%;
+    color: white !important;
+}
+
+.left-nav-items .active a i {
+    color: white;
+}
+
+.left-nav-items ul li {
+    margin-bottom: 2rem;
+}
+
+.employer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.employer-container img {
+    margin-top: 3rem;
+    width: 50%;
+}
+
+.employer-container h3,
+.employer-container h5 {
+    margin-top: 1rem;
+}
+
+.employer-container h5 {
+    color: #8e8e8e;
+
+}
+
+.left-nav-items ul li a {
+    color: #000000;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.left-nav-items ul li a:hover {
+    color: #87cefa;
+}
+
+.left-nav-items ul li a i {
+    color: black;
+    margin-right: 1rem;
+    font-size: 1.2rem;
+}
+
+#jobs-dropdown {
+    display: none;
+    padding: 0.5rem;
+}
+
+#jobs-dropdown li {
+    list-style-type: none;
+    margin: 1rem 2rem;
+}
+
+#jobs-dropdown li a {
+    color: #333;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+#jobs-dropdown li a:hover {
+    color: #87cefa;
+}
+
+#jobs-link {
+    display: block;
+    color: #000;
+    text-decoration: none;
+    position: relative;
+}
+
+#jobs-link:hover {
+    color: #87cefa;
+}
+
+#jobs-link::after {
+    content: "\f107";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    font-size: 0.8rem;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+}
+
+#jobs-link.open::after {
+    content: "\f106";
+}
+
+/* EOF Left Container */

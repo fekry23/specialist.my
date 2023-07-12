@@ -136,7 +136,7 @@ if (window.location.pathname === '/find-candidate' && window.location.search ===
 var input_category = document.querySelector('input[name="input-category-dropdown"]'),
   // init Tagify script on the above inputs
   category_tagify = new (_yaireo_tagify__WEBPACK_IMPORTED_MODULE_0___default())(input_category, {
-    whitelist: ["Accounting & Consulting", "Admin Support", "Customer Service", "Data Science & Analytics", "Design & Creative", "Engineering & Architecture", "IT & Networking", "Legal", "Sales & Marketing", "Translation", "Web/Mobile & Software Dev", "Writing"],
+    whitelist: ["Accounting & Consulting", "Admin Support", "Customer Service", "Data Science & Analytics", "Design & Creative", "Engineering & Architecture", "IT & Networking", "Legal", "Sales & Marketing", "Translation", "Web/Mobile & Software Dev", "Writing", "Others"],
     maxTags: 3,
     dropdown: {
       maxItems: 12,
@@ -159,7 +159,7 @@ var input_state = document.querySelector('input[name=tags-select-state-mode]'),
   state_tagify = new (_yaireo_tagify__WEBPACK_IMPORTED_MODULE_0___default())(input_state, {
     enforceWhitelist: true,
     mode: "select",
-    whitelist: ["Johor", "Kedah", "Kelantan", "Kuala Lumpur", "Labuan", "Melaka", "Negeri Sembilan", "Pahang", "Penang", "Perak", "Perlis", "Perlis", "Putrajaya", "Sabah", "Sarawak", "Selangor", "Terengganu"],
+    whitelist: ["Johor", "Kedah", "Kelantan", "Kuala Lumpur", "Labuan", "Melaka", "Negeri Sembilan", "Pahang", "Penang", "Perak", "Perlis", "Putrajaya", "Sabah", "Sarawak", "Selangor", "Terengganu", "Others"],
     blacklist: ['foo', 'bar']
   });
 // -------------------------------------------------------------------------------------- //
