@@ -84,8 +84,7 @@
                 <div class="wordings-container">
                     <p>Hiring a freelancer is like finding a needle in a haystack - but worth the effort!</p>
                     <div class="wordings-container-button">
-                        <button type="button"
-                            onclick="redirectToEmployerDashboard('{{ Auth::guard('employer')->check() }}')">
+                        <button type="button" onclick="redirectToDashboard('employer')">
                             Post a job <br> and hire an expert </button>
                         <button type="button" onclick="window.location = '/find-candidate'">Browse talent</button>
                     </div>
@@ -99,8 +98,7 @@
                 <div class="wordings-container">
                     <p>Find your dream job as a freelancer and control when, where, and how you work on Specialist.my!</p>
                     <div class="wordings-container-button">
-                        <button type="button"
-                            onclick="redirectToTrainerDashboard('{{ Auth::guard('trainer')->check() }}')">
+                        <button type="button" onclick="redirectToDashboard('trainer')">
                             Create and <br> update your profile </button>
                         <button type="button" onclick="window.location = '/find-job'">Browse jobs</button>
                     </div>
@@ -151,20 +149,30 @@
     </script>
 
     <script>
-        function redirectToEmployerDashboard(guard) {
-            if (guard) {
-                window.location = '/employer/dashboard/{{ Auth::guard('employer')->id() }}';
+        function redirectToDashboard(userType) {
+            // if (guard) {
+            //     window.location = '/employer/dashboard/{{ Auth::guard('employer')->id() }}';
+            // } else {
+            //     alert('Please logout your Trainer Account first.');
+            // }
+
+            if ({{ auth()->guard('trainer')->check()? 'true': 'false' }} && userType == 'trainer') {
+                // Trainer guard user is logged in
+                window.location = '/trainer/dashboard/{{ auth()->guard('trainer')->id() }}';
+            } else if ({{ auth()->guard('employer')->check()? 'true': 'false' }} && userType == 'employer') {
+                // Employer guard user is logged in
+                window.location = '/employer/dashboard/{{ auth()->guard('employer')->id() }}';
             } else {
-                alert('Please logout your Trainer Account first.');
+                alert('Create or login your ' + userType + ' account first!');
             }
         }
 
-        function redirectToTrainerDashboard(guard) {
-            if (guard) {
-                window.location = '/employer/dashboard/{{ Auth::guard('trainer')->id() }}';
-            } else {
-                alert('Please logout your Employer Account first.');
-            }
-        }
+        // function redirectToTrainerDashboard(guard) {
+        //     if (guard) {
+        //         window.location = '/trainer/dashboard/{{ Auth::guard('trainer')->id() }}';
+        //     } else {
+        //         alert('Please logout your Employer Account first.');
+        //     }
+        // }
     </script>
 @endsection
